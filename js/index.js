@@ -102,7 +102,7 @@ function modeIcon() {
     const header = document.querySelector('header').classList.contains('light')
     const imgMenu = document.querySelector('header .app img')
     const sourceMenu = imgMenu.getAttribute('src')
-    
+    console.log(sourceMenu)    
     if(header) {
         if(sourceMenu == './assets/img/x-circle-white.svg') {
             imgMenu.setAttribute('src', './assets/img/x-circle.svg')
@@ -111,7 +111,16 @@ function modeIcon() {
         if(sourceMenu == './assets/img/menu-white.svg'){
             console.log('oi')
             imgMenu.setAttribute('src', './assets/img/menu.svg')
+        }
+    } else {
+        if(sourceMenu == './assets/img/x-circle.svg') {
+            console.log('circulo branco')
+            imgMenu.setAttribute('src', './assets/img/x-circle-white.svg')
             return
+        }
+        if(sourceMenu == './assets/img/menu.svg') {
+            console.log('menuH branco')
+            imgMenu.setAttribute('src', './assets/img/menu-white.svg')
         }
     }
 }
@@ -130,6 +139,7 @@ function changeTheme() {
     this.classList.toggle('light')
     if(this.classList.contains('light')) {
         iconChangeTheme.innerHTML = '<img src="./assets/img/moon.svg" alt="moon-icon">'
+        modeIcon()
         return
     }
     iconChangeTheme.innerHTML = '<img src="./assets/img/sun.svg" alt="sun-icon">'
