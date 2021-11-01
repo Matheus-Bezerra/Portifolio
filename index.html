@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet/less" type="text/css" href="style.less" />
+    <title>Portifólio</title>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="logo">
+                    <h1>Matheus Bezerra</h1>
+                    <p>Desenvolvedor Web/Mobile</p>
+                </div>
+                <div class="app">
+                    <img src="./assets/img/menu-white.svg" alt="menu-hamburguer">
+                </div>
+                <ul data="menuList">
+                    <li class="active"><a>Portifólio</a></li>
+                    <li><a>Sobre</a></li>
+                    <li><a>Contato</a></li>
+                    <li><a>Blog</a></li>
+                </ul>
+                <ul>
+                    <li><a><i data-feather="github"></i></a></li>
+                    <li><a><i data-feather="linkedin"></i></a></li>
+                    <li><a><i data-feather="facebook"></i></a></li>
+                    <li><a><i data-feather="instagram"></i></a></li>
+                </ul>
+                <i class="menuH" data-feather="menu"></i>
+            </nav>
+        </header>
+        
+        <section class="intro">
+            <h1>Matheus Bezerra</h1>
+            <h2>Web Design, Desenvolvimento Web e Mobile Nativo</h2>
+            <p>Sou apaixonado por tecnologia, principalmente na área
+                de desenvolvimento Web e Mobile, pois estou
+                buscando oportunidades para aprender cada vez mais e poder ajudar
+            </p>
+            <button>Portifólio</button>
+        </section>
+    
+        <main class="portfolio">
+            <section class="portfolio-item">
+                <ul class="options">
+                    <li data-option="todos" class="active"><a>Todos</a></li>
+                    <li data-option="sites"><a>Sites</a></li>
+                    <li data-option="landingPages"><a>Landing Pages</a></li>
+                    <li data-option="paginasInterativas"><a>Páginas interátivas</a></li>
+                </ul>
+            </section>
+    
+            <section class="portfolio-projetos">
+                
+            </section>
+        </main>
+
+
+        <footer>
+            <div class="social-networks">
+                <i data-feather="linkedin"></i>
+                <i data-feather="github"></i>
+                <i data-feather="mail"></i>
+            </div>
+            <div class="contact">
+                <span>E-mail: matheusbwzerra002@gmail.com</span>
+                <span><i data-feather="code"></i></span>
+                <span>Telefone: (11) 97661-1929</span>
+            </div>
+            <div class="copy">
+                <span>© Copyright 2021 <i data-feather="arrow-right"></i> todos os direitos reservados</span>
+                <span><i data-feather="chevron-right"></i> Matheus Bezerra</span>
+            </div>
+        </footer>
+
+        <div class="change-theme">
+            <img src="./assets/img/sun.svg" alt="sun-icon">
+        </div>
+        
+    </div>
+
+
+    <script>
+        feather.replace()
+      </script>
+    <script src="scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/less@4.1.1" ></script>
+</body>
+</html>
