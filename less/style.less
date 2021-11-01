@@ -1,8 +1,9 @@
 // FONTS:
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@400;700&family=Montserrat:wght@300;400;500;700&family=Open+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@400;700&family=Inter:wght@400;500&family=Montserrat:wght@300;400;500;700&family=Open+Sans:wght@400;500;700&display=swap');
 @font-intro: ~"font-family: 'Bebas Neue', cursive;";
 @font-header: ~"font-family: 'Comfortaa', cursive;";
 @font-text: ~"font-family: 'Montserrat', sans-serif;";
+@font-text-secundary: ~"font-family: 'Inter', sans-serif";
 @font-logo: ~"font-family: 'Open Sans', sans-serif;";
 
 // CORES:
@@ -32,8 +33,13 @@ li {
     list-style: none;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 body {
-    font-family: 'Montserrat', sans-serif;;
+    font-family: 'Montserrat', sans-serif;
     background-color: @color-main-night;
     color: @text-color-primary-night;
     transition: all 1.5s ease-in-out;
