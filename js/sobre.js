@@ -21,7 +21,6 @@ function modeIcon() {
     const header = document.querySelector('header').classList.contains('light')
     const imgMenu = document.querySelector('header .app img')
     const sourceMenu = imgMenu.getAttribute('src')
-    console.log(sourceMenu)    
     if(header) {
         if(sourceMenu == './assets/img/x-circle-white.svg') {
             imgMenu.setAttribute('src', './assets/img/x-circle.svg')
@@ -57,3 +56,6 @@ function changeTheme() {
     iconChangeTheme.innerHTML = '<img src="./assets/img/sun.svg" alt="sun-icon">'
     modeIcon()
 }
+
+// slider
+
