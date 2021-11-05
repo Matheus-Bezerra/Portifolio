@@ -57,7 +57,7 @@ function changeTheme() {
     modeIcon()
 }
 
-// slider
+// slider adicionando informações automaticamente conforme o arquivo slide.js
 const sliderContainer = document.querySelector('.slider-container')
 slides.forEach(slide => {
     sliderContainer.innerHTML += `
@@ -65,3 +65,48 @@ slides.forEach(slide => {
         <h1>${slide.tecnologia}</h1>
     </div>`
 })
+
+// aplicando funcionalidade no slider
+const sliderEl = document.querySelector('.slider')
+const previousEl = sliderEl.querySelector('#previous')
+const nextEl = sliderEl.querySelector('#next')
+let interval = undefined
+let timeout = undefined
+
+
+const arrowsSlider = [previousEl, nextEl]
+arrowsSlider.forEach(arrow => arrow.addEventListener('click', handleClickSlider))
+
+function handleClickSlider() {
+    const sliderWidth = sliderContainer.offsetWidth
+    if(this.id == 'next') {
+        sliderContainer.scrollLeft += sliderWidth
+        stopScrollSlider()
+        return
+    }
+    sliderContainer.scrollLeft -= sliderWidth
+    stopScrollSlider()
+}
+
+function stopScrollSlider() {
+    clearTimeout(timeout)
+    clearInterval(interval)
+    interval = undefined
+    timeout = setTimeout(() => {
+        autoScrollSlider()
+    }, 5000)
+}
+
+function autoScrollSlider() {
+    interval = setInterval(() => {
+        const sliderWidth = sliderContainer.offsetWidth
+        const numberSlides = sliderContainer.childElementCount
+        const selectedSlide = (sliderContainer.scrollLeft/sliderWidth) + 1
+        if(numberSlides == Math.round(selectedSlide)) {
+            sliderContainer.scrollLeft = 0
+            return
+        }
+        sliderContainer.scrollLeft += sliderWidth + 1
+    }, 2000)
+}
+autoScrollSlider()
