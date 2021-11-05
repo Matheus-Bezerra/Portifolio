@@ -58,6 +58,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
             svg {
                 color: @color-active-items;
                 font-weight: bold;
@@ -70,6 +71,7 @@
             left: 1rem;
         }
         .slider-container {
+            scroll-behavior: smooth;
             min-width: 300px;
             max-width: 100%;
             min-height: 350px;
@@ -77,8 +79,8 @@
             display: flex;
             overflow-x: hidden;
             .img {
-                background: url(https://static.vecteezy.com/system/resources/thumbnails/001/236/806/small/yellow-gradient-background-with-stripe-lines-diagonal.jpg) no-repeat center/cover;
                 min-width: 100%;
+                max-width: 100%;
                 min-height: 100%;
                 object-fit: cover;
                 display: flex;
