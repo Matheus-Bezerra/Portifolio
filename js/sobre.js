@@ -58,4 +58,10 @@ function changeTheme() {
 }
 
 // slider
-
+const sliderContainer = document.querySelector('.slider-container')
+slides.forEach(slide => {
+    sliderContainer.innerHTML += `
+    <div class="img" style="background: ${slide.background};">
+        <h1>${slide.tecnologia}</h1>
+    </div>`
+})
