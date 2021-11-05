@@ -106,7 +106,7 @@ function autoScrollSlider() {
             sliderContainer.scrollLeft = 0
             return
         }
-        sliderContainer.scrollLeft += sliderWidth + 1
+        sliderContainer.scrollLeft += sliderWidth
     }, 2000)
 }
 autoScrollSlider()
