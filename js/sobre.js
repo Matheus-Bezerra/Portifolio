@@ -47,6 +47,9 @@ function changeTheme() {
     const body = document.querySelector('body').classList.toggle('light')
     const header = document.querySelector('header').classList.toggle('light')
     const footer = document.querySelector('footer').classList.toggle('light')
+    const previousSlide = document.querySelector('#previous').classList.toggle('light')
+    const nextSlide = document.querySelector('#next').classList.toggle('light')
+    console.log(previousSlide)
     this.classList.toggle('light')
     if(this.classList.contains('light')) {
         iconChangeTheme.innerHTML = '<img src="./assets/img/moon.svg" alt="moon-icon">'

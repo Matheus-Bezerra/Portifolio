@@ -58,10 +58,15 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            transition: all 1s ease-in;
             svg {
                 color: @color-active-items;
                 font-weight: bold;
+                cursor: pointer;
             }
+        }
+        #previous.light, #next.light {
+            background-color: @color-main-light;
         }
         #next {
             right: 1rem;
