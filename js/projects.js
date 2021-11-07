@@ -22,7 +22,7 @@ const projects = [
         nome: 'Cavaleiros do Zodíaco',
         imagem: './assets/img/port-project4.png',
         link: 'https://cocky-benz-1a912b.netlify.app/',
-        tipo: 'paginasInterativas',
+        tipo: 'extras',
     },
     {
         nome: 'BookMark<i data-feather="bookmark"></i>',
@@ -46,13 +46,13 @@ const projects = [
         nome: 'Carros',
         imagem: './assets/img/port-project8.png',
         link: 'https://github.com/Matheus-Bezerra/ProjetoJs-carros',
-        tipo: 'paginasInterativas',
+        tipo: 'extras',
     },
     {
         nome: 'Desafios Js',
         imagem: './assets/img/port-project9.png',
         link: 'https://github.com/Matheus-Bezerra/Desafios-Javascript',
-        tipo: 'paginasInterativas', 
+        tipo: 'extras', 
     }   
 ]
 
