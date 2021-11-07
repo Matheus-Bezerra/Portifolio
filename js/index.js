@@ -143,10 +143,6 @@ function createCards() {
     })
     sectionCard.innerHTML += html
     hoverCards()
-    opcoes.forEach(option => {
-        const projectCards = document.querySelectorAll('.portfolio-projetos a')
-        const optionActive = option.classList.contains('active')
-    })
 }
 
 createCards()
@@ -154,7 +150,6 @@ createCards()
 // Hover in cards
 function hoverCards() {
     const cards = document.querySelectorAll('.portfolio-projetos .portfolio-projetosImg')
-    console.log(cards)
     cards.forEach(card => {
         card.addEventListener('mouseover', handleHoverCards)
         card.addEventListener('mouseout', outHoverCards)
