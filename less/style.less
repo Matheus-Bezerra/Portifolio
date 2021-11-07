@@ -209,9 +209,8 @@ header.light {
         margin: auto;
         display: grid;
         gap: 2rem;
-        grid-auto-flow: column;
         grid-template-columns: repeat(3, minmax(300px, 1fr));
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: subgrid;
         justify-content: space-between;
         .portfolio-projetosImg {
             position: relative;
