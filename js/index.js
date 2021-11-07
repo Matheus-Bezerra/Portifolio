@@ -123,8 +123,8 @@ function createCards() {
                     </a>`
                 }
             break;
-            case 'paginasInterativas':
-                if(project.tipo == 'paginasInterativas') {
+            case 'extras':
+                if(project.tipo == 'extras') {
                     html += `<a href="${project.link}" target="_blank">
                     <div class="portfolio-projetosImg">
                         <img src="${project.imagem}" alt="projeto-${index}">
