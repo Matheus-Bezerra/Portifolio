@@ -271,8 +271,11 @@ footer {
     transition: all 1.5s;
     .social-networks {
         margin-bottom: 2rem;
-        svg + svg {
+        a + a {
             margin-left: 1.5rem;
+        }
+        a:hover {
+            color: @color-active-items;
         }
     }
     .contact {
