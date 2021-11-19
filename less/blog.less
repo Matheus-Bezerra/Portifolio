@@ -1,0 +1,61 @@
+@import url(./style.less);
+.blog {
+    .blog--presentation {
+        padding: 6rem 0px;
+        margin: auto;
+        width: 80%;
+        h1 {
+            font-size: 2rem;
+            text-align: center;
+            position: relative;
+            font-family: 'Comfortaa', cursive;
+            letter-spacing: .1rem;
+            text-transform: uppercase;
+            &::after {
+                background-color: @color-active-items;
+                content: '';
+                display: block;
+                height: 6px;
+                margin: auto;
+                margin-top: .5rem;
+                width: 100px;
+            }
+        }
+        p {
+            margin-top: 3rem;
+            text-align: center;
+        }
+    }
+    .developing {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        svg {
+            animation: animationDeveloping 2.5s linear infinite;
+        }
+        svg:first-child {
+            height: 65px;
+            width: 65px;
+        }
+        svg:nth-child(2) {
+            height: 45px;
+            width: 45px;
+        }
+        svg:last-child {
+            height: 85px;
+            width: 85px;
+        }
+        p {
+            font-size: 1.2;
+            font-weight: 700;
+            margin-top: 1rem;
+        }
+    }
+}
+
+@keyframes animationDeveloping {
+    100% {
+        transform: rotate(360deg);
+    }
+}
