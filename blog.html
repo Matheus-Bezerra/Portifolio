@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet/less" type="text/css" href="less/style.less" />
+    <link rel="stylesheet/less" type="text/css" href="less/blog.less" />
     <link rel="shortcut icon" href="./assets/img/favicone.svg" type="image/x-icon">
     <script src="https://unpkg.com/feather-icons"></script>
     <title>Matheus Bezerra</title>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -21,7 +24,7 @@
                     <img src="./assets/img/menu-white.svg" alt="menu-hamburguer">
                 </div>
                 <ul data="menuList">
-                    <li><a>Portifólio</a></li>
+                    <li><a href="index.html">Portifólio</a></li>
                     <li><a href="./sobre.html">Sobre</a></li>
                     <li><a href="mailto:matheusbwzerra002@gmail.com">Contato</a></li>
                     <li class="active"><a>Blog</a></li>
@@ -36,8 +39,20 @@
             </nav>
         </header>
 
-        <main>
-            
+        <main class="blog">
+            <div class="blog--presentation">
+                <h1>Blog</h1>
+                <div class="div--line"></div>
+                <p>Essa página vai ser para ajudar pessoas com noticias, dicas com foco na área de desenvolvimento geral</p>
+            </div>
+            <div class="developing">
+                <div>
+                    <i data-feather="settings"></i>
+                    <i data-feather="settings"></i>
+                    <i data-feather="settings"></i>
+                </div>
+                <p>Em breve disponível, está sendo desenvolvida</p>
+            </div>
         </main>
 
 
@@ -67,15 +82,15 @@
         <div class="change-theme">
             <img src="./assets/img/sun.svg" alt="sun-icon">
         </div>
-        
+
     </div>
 
 
     <script>
         feather.replace()
-      </script>
-    <script src="js/projects.js"></script>
-    <script src="js/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/less@4.1.1" ></script>
+    </script>
+    <script src="js/blog.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/less@4.1.1"></script>
 </body>
+
 </html>
