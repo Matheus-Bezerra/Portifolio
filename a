@@ -1,0 +1,250 @@
+[33mcommit 53ff98d3ce2dbaa880b72d075d9e40947aaa7ac3[m[33m ([m[1;36mHEAD -> [m[1;32mslides[m[33m, [m[1;31morigin/slides[m[33m)[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Thu Dec 2 15:00:53 2021 -0300
+
+    Estilizando slide modificado
+
+[33mcommit 0ddbf83ff334e5c4e56704f72534b4cb127b9581[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Thu Dec 2 14:59:23 2021 -0300
+
+    Estruturando html da aplicação
+
+[33mcommit b0402e607be7a6cbaad58027c0d11817027f5871[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Wed Dec 1 16:10:28 2021 -0300
+
+    Melhorando o slide
+
+[33mcommit 8f7def9702132d09fb2a624caba7e95551abb91a[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Tue Nov 30 18:25:48 2021 -0300
+
+    Readme detalhando projeto
+
+[33mcommit 475b61f17b49749b91b113848b27e47ac6c97449[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Tue Nov 30 18:16:47 2021 -0300
+
+    Sobre otimizado
+
+[33mcommit 1154ae51a3b021c13469fde6cb867742605422a3[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Tue Nov 30 18:16:32 2021 -0300
+
+    Blog otimizado
+
+[33mcommit eea64441853e1b56b32c5441a8c3dbd8361c3da5[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Tue Nov 30 18:16:12 2021 -0300
+
+    Otimizando index
+
+[33mcommit 0ed21a219a332b5d9ee45bf0fe6a720a1962d4e6[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sat Nov 20 16:32:10 2021 -0300
+
+    index.less deletado
+
+[33mcommit c1d0fbaa5a8965282e55f98d8f4eff2507baa042[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 19 15:38:48 2021 -0300
+
+    Atualizando conteudo da home do portfólio
+
+[33mcommit c5822d94cb27400fedc7683123a814302b69d9db[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 19 15:16:00 2021 -0300
+
+    Alterando cores do light
+
+[33mcommit 41bd5fe599f6bfb2656ab2b6811f4948ab6a97f0[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 19 15:15:44 2021 -0300
+
+    Interação da página blog
+
+[33mcommit 4aac1d9983b9196b3aedeb05b09c3fa154d6e731[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 19 15:15:19 2021 -0300
+
+    Conteudo do blog sendo desenvolvida
+
+[33mcommit 7238e223f7be7403ba78b93d55f6702a98d2c32e[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 19 15:14:43 2021 -0300
+
+    Estilização do blog estruturada
+    ;
+
+[33mcommit 67e3d6cd754eae364ae9cfca2357e4930feb021a[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 19 15:07:32 2021 -0300
+
+    Novo arquivo de scripts para o blog
+
+[33mcommit 65b6acfb9d5b3dc253994fbd84b9697d98477363[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Thu Nov 18 15:44:25 2021 -0300
+
+    ligando com o blog
+
+[33mcommit d4a9db9bbd8171aaf8291e26045c3361de98a59d[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Thu Nov 18 15:43:44 2021 -0300
+
+    Página de blog, criação inicializada
+
+[33mcommit 0554c5d88d40c86e0d83a1e330e3105d418cd5ea[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Tue Nov 9 18:26:43 2021 -0300
+
+    Estilizando links do footer
+
+[33mcommit 77068e30f128728acb2985196d39d37e8e1e928a[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Tue Nov 9 18:26:20 2021 -0300
+
+    Ajustando links do footer
+
+[33mcommit c06d77ecab1215180ddf4e2200def045a5cdce33[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Tue Nov 9 18:21:34 2021 -0300
+
+    Estilização dos links sobre min no conteúdo
+
+[33mcommit bd12c6232bff3cd59ba047767152b1716412b5c2[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Tue Nov 9 18:20:43 2021 -0300
+
+    Texto das informações sobre mim atualizado no conteudo
+
+[33mcommit f47b57a8539580171550a0982914ca5b6413235f[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Mon Nov 8 19:58:04 2021 -0300
+
+    Novo icone da página no body
+
+[33mcommit b09aabad05addb082656908d9f17f535b7250e02[m
+Merge: ef84028 85f04c1
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Mon Nov 8 19:57:39 2021 -0300
+
+    Merge branch 'main' of https://github.com/Matheus-Bezerra/Portifolio
+
+[33mcommit ef84028f486d34d39e22e10226aa0384f539b809[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Mon Nov 8 19:57:04 2021 -0300
+
+    Atualizando textos da página de portifólio
+
+[33mcommit 85f04c16efa00e4933244c295a3d8d6c937c2a23[m
+Author: Matheus Gonçalves da Silva Bezerra <78742961+Matheus-Bezerra@users.noreply.github.com>
+Date:   Mon Nov 8 17:18:10 2021 -0300
+
+    Create README.md
+
+[33mcommit fa44b6eb496961c7c9a15820b1c1558137aeadcd[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sun Nov 7 15:29:55 2021 -0300
+
+    noturno para os arrows do slide e nova opção de portifólio
+
+[33mcommit 8392c2c91e7894ca5f84edb12603b0263c8930e8[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sun Nov 7 15:28:49 2021 -0300
+
+    Alterando o nome do tipo para os extras
+
+[33mcommit bc7fdd41bc55e84f8fa0d4a6ddb8b43f2750633e[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sun Nov 7 15:28:09 2021 -0300
+
+    Alterado nome das opções do portifólio
+
+[33mcommit a9217e8d4bbc2308a56f583d317bfc7a0c1fe4e6[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sun Nov 7 14:59:51 2021 -0300
+
+    Reajustando/estilizando as funcionalidades do portifólio e da parte sobre
+
+[33mcommit 5b0d39fd34cb3cfccd9a0643a65439aef9dbb1c6[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sun Nov 7 13:37:56 2021 -0300
+
+    Colocando/estilizando links nos icones das redes sociais
+
+[33mcommit da3d01713631cbeaf21326e17cd8bc62f9e733b0[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sun Nov 7 13:20:19 2021 -0300
+
+    Reestruturando código do estilo dos cards do portifólio
+
+[33mcommit fd008d6fcc4c6f69f26937b912a8e07e808a772c[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sun Nov 7 13:19:50 2021 -0300
+
+    Estruturando código dos cards dos portifólios
+
+[33mcommit 0b5be69090a00adf6d3c040ceb17e909b0821896[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sun Nov 7 12:46:00 2021 -0300
+
+    Adicionando funcionalidade das seções do portifólio
+
+[33mcommit 59c9652384b47ac2b9fe2e277835efb15559851b[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sun Nov 7 12:20:09 2021 -0300
+
+    separando os scripts
+
+[33mcommit ce17551d7e4d31a4fd9a32067cb0201f37056e50[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sun Nov 7 12:19:17 2021 -0300
+
+    Sicronizando o arquivo html com o js separado de projetos
+
+[33mcommit e211b66c5fc9def8e88a55956ecaca70e115bee9[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Sun Nov 7 12:15:50 2021 -0300
+
+    Ajustando grid dos cards no portifolio
+
+[33mcommit c1403dcce0f295a961a77685359e472ccf9b4204[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 5 16:22:00 2021 -0300
+
+    Adicionando Responsividade na página sobre
+
+[33mcommit d95e34805c32f7ed77c24d0d5a37b2ea07ab8f41[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 5 16:21:33 2021 -0300
+
+    Ajustando o slider
+
+[33mcommit e95109f17223089ceed6e9c8a2b1f073b4d5fa53[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 5 15:25:16 2021 -0300
+
+    Arrumando apresentação da página sobre(titulo)
+
+[33mcommit 4ed7d6937777f2a8139bbc5a9d5dba10b990cfbb[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 5 15:24:32 2021 -0300
+
+    Personalizando os bugs do slide
+
+[33mcommit a0b54e6887d895b84092590076093dc5d5b05c28[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 5 15:23:42 2021 -0300
+
+    Automatização total no slide
+
+[33mcommit ecc70a12a9f3cc3e449bca6a0a118d9e8533047e[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com>
+Date:   Fri Nov 5 15:23:18 2021 -0300
+
+    Adicionando slides das tecnologias experimentadas
+
+[33mcommit e8d0767b4151377a8920a2d35b9382e1942fc9c6[m
+Author: Matheus-Bezerra <matheusbwzerra002@gmail.com
