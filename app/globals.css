@@ -1,0 +1,536 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Tokens — fonte: docs/design-handoff.md §2 + exportação do Claude Design
+   ------------------------------------------------------------------ */
+/* Janelas baixas no desktop: o palco oculta o número em contorno para dar espaço */
+@custom-variant stage-compact (@media (min-width: 64rem) and (max-height: 820px));
+
+@theme {
+  /* Largura de referência do design (1440) */
+  --breakpoint-ref: 90rem;
+
+  /* Cores base */
+  --color-bg: #141414;
+  --color-surface: #202020;
+  --color-surface-2: #2a2a2a;
+  --color-surface-deep: #1c1c1c;
+  --color-surface-sunk: #1a1a1a;
+  --color-surface-raised: #262626;
+
+  --color-text: #f5f2ed;
+  --color-text-2: #b7b3ad;
+  --color-text-3: #8e8a84;
+
+  --color-accent: #ff853d;
+  --color-accent-hover: #ff9a5c;
+  --color-accent-pressed: #e8732f;
+  --color-accent-disabled: #3a3330;
+
+  --color-line: #393939;
+  --color-line-soft: #262626;
+  --color-line-strong: #4a4741;
+  --color-separator: #5a5650;
+  --color-control: #7a766f;
+
+  --color-error: #ff6b6b;
+  --color-success: #7bd69b;
+
+  /* Tipografia (variáveis definidas por next/font em app/layout.tsx) */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-inter), ui-sans-serif, sans-serif;
+
+  /* Raios */
+  --radius-field: 10px;
+  --radius-card: 8px;
+  --radius-media: 6px;
+  --radius-band: 16px;
+  --radius-stage: 24px;
+
+  /* Sombras — só elementos que flutuam */
+  --shadow-header: 0 12px 32px rgba(0, 0, 0, 0.35);
+  --shadow-icon: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-stage: 0 30px 60px rgba(0, 0, 0, 0.45);
+
+  /* Easing */
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-expressive: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    --header-offset: 96px;
+    color-scheme: dark;
+  }
+
+  html {
+    /* Reserva a barra de rolagem: travar a rolagem (abertura, menu) não desloca a página */
+    scrollbar-gutter: stable;
+    background: var(--color-bg);
+    color: var(--color-text);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: var(--header-offset);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+    /* Snap leve nos palcos de rolagem (marcadores em components/stages/StageShell) */
+    html.has-stage {
+      scroll-snap-type: y proximity;
+    }
+    /* Com Lenis o encaixe nativo brigaria com a inércia: os passos dos palcos são discretos de qualquer forma */
+    html.lenis.has-stage {
+      scroll-snap-type: none;
+    }
+  }
+
+  /* Lenis (rolagem suave): o navegador não pode suavizar nem encaixar a rolagem por conta própria */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  html.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  html.lenis.lenis-stopped {
+    overflow: clip;
+  }
+
+  html.lenis [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 26px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  /* Seções com âncora não ficam escondidas atrás do header */
+  section[id] {
+    scroll-margin-top: 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Abertura (components/intro/IntroLoader)
+   O monograma se desenha, o anel nasce ao redor e a cortina sobe.
+   Tudo em CSS para começar no primeiro paint, antes da hidratação.
+   ------------------------------------------------------------------ */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 600ms var(--ease-expressive);
+  /* Se o JavaScript não rodar, a abertura some sozinha e não prende o conteúdo */
+  animation: intro-failsafe 400ms linear 4.5s forwards;
+}
+
+.intro-mark {
+  width: clamp(180px, 18vw, 260px);
+  height: auto;
+  overflow: visible;
+  transition:
+    transform 600ms var(--ease-expressive),
+    opacity 300ms var(--ease-standard);
+}
+
+.intro-stroke {
+  stroke: var(--color-accent);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: intro-draw 900ms cubic-bezier(0.65, 0, 0.35, 1) 100ms forwards;
+}
+
+.intro-fill {
+  fill: var(--color-accent);
+  opacity: 0;
+  animation: intro-fade 350ms var(--ease-standard) 850ms forwards;
+}
+
+.intro-ring {
+  stroke: var(--color-accent);
+  stroke-width: 2.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transform: rotate(-90deg);
+  animation: intro-draw 700ms var(--ease-expressive) 750ms forwards;
+}
+
+/* Saída: a cortina sobe; o anel cresce em direção ao anel do hero */
+.intro[data-phase="exit"] {
+  clip-path: inset(0 0 100% 0);
+  pointer-events: none;
+}
+
+.intro[data-phase="exit"] .intro-mark {
+  transform: scale(1.9);
+  opacity: 0;
+}
+
+html.intro-lock {
+  overflow: hidden;
+}
+
+@keyframes intro-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes intro-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Cursor da marca (components/motion/CursorDot)
+   A classe só entra via JavaScript, com mouse/trackpad.
+   Campos de texto mantêm o cursor nativo.
+   ------------------------------------------------------------------ */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none;
+}
+
+html.has-cursor :is(input, textarea, [contenteditable="true"]) {
+  cursor: text;
+}
+
+html.has-cursor select {
+  cursor: default;
+}
+
+/* ------------------------------------------------------------------
+   Botão fixo de WhatsApp e cursor de digitação do Sobre
+   ------------------------------------------------------------------ */
+.fab-pulse {
+  opacity: 0;
+  /* Duas ondas e pronto: o movimento automático dura 4 s no total (WCAG 2.2.2: até 5 s) */
+  animation: fab-pulse 1.5s var(--ease-standard) 1s 2;
+}
+
+@keyframes fab-pulse {
+  0% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+.caret {
+  animation: caret-blink 900ms steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Layout
+   ------------------------------------------------------------------ */
+
+/* Contêiner com as margens do handoff: 20 · 40 · 64 · 120 */
+@utility shell {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 20px;
+  @media (width >= 48rem) {
+    padding-inline: 40px;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 64px;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 120px;
+  }
+}
+
+/* Grade de 12 colunas, gutter 24 px */
+@utility grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+}
+
+/* Espaçamento vertical padrão de seção: 80 mobile · 128 desktop */
+@utility section-y {
+  padding-block: 64px;
+  @media (width >= 64rem) {
+    padding-block: 96px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Tipografia
+   ------------------------------------------------------------------ */
+@utility type-h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(34px, 4vw + 1rem, 56px);
+  line-height: calc(1em + 8px);
+  letter-spacing: -0.025em;
+  color: var(--color-text);
+}
+
+@utility type-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(30px, 2.4vw + 1rem, 44px);
+  line-height: calc(1.1em + 5.6px);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+/* H2 compacto: Experiência, Tecnologias e Contato (40 desktop) */
+@utility type-h2-sm {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(28px, 2.4vw + 1rem, 40px);
+  line-height: calc(1.1em + 5.6px);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+@utility type-statement {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(30px, 2.6vw + 1rem, 48px);
+  line-height: calc(1em + 8px);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  @media (width >= 64rem) {
+    line-height: calc(1em + 12px);
+  }
+}
+
+@utility type-lead {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-text-2);
+  @media (width >= 48rem) {
+    font-size: 18px;
+    line-height: 30px;
+  }
+}
+
+@utility type-body {
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-text-2);
+}
+
+@utility type-small {
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--color-text-2);
+}
+
+@utility type-meta {
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--color-text-3);
+}
+
+@utility type-tag {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-3);
+}
+
+/* Eyebrow com traço laranja 24×2 antes */
+@utility eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-2);
+  &::before {
+    content: "";
+    width: 24px;
+    height: 2px;
+    flex: none;
+    background: var(--color-accent);
+  }
+}
+
+/* Chegada por âncora: o traço do eyebrow da seção alcançada se estende e volta (uma vez) */
+@media (prefers-reduced-motion: no-preference) {
+  .eyebrow[data-arrived]::before {
+    transform-origin: left center;
+    animation: eyebrow-arrive 800ms var(--ease-expressive) 350ms both;
+  }
+}
+@keyframes eyebrow-arrive {
+  0% {
+    transform: scaleX(1);
+  }
+  40% {
+    transform: scaleX(2.2);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+/* Número de palco em contorno */
+@utility stage-number {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(88px, 8vw, 132px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-line-strong);
+}
+
+/*
+ * Escala das ilustrações dos palcos (--is) e do ciclo orbital (--ps).
+ * Valores de referência: ilustração 420 × 300 · ciclo 700 × 540.
+ * Declarados em ordem: largura primeiro, altura da janela por último (vence a cascata).
+ */
+@utility stage-art {
+  --is: 0.757;
+  @media (width < 23.4375rem) {
+    --is: 0.62;
+  }
+  @media (width < 48rem) and (max-height: 760px) {
+    --is: 0.6;
+  }
+  @media (width >= 48rem) {
+    --is: 1;
+  }
+  @media (width >= 64rem) {
+    --is: 1.15;
+  }
+  @media (width >= 80rem) {
+    --is: 1.4;
+  }
+  @media (width >= 90rem) {
+    --is: 1.6;
+  }
+  @media (width >= 64rem) and (max-height: 820px) {
+    --is: 1.1;
+  }
+  @media (width >= 80rem) and (max-height: 820px) {
+    --is: 1.3;
+  }
+  @media (width >= 64rem) and (max-height: 700px) {
+    --is: 0.95;
+  }
+}
+
+@utility stage-ring {
+  --ps: 0.8;
+  @media (width >= 64rem) {
+    --ps: 0.72;
+  }
+  @media (width >= 80rem) {
+    --ps: 0.85;
+  }
+  @media (width >= 90rem) {
+    --ps: 1.1;
+  }
+  @media (width >= 64rem) and (max-height: 820px) {
+    --ps: 0.66;
+  }
+  @media (width >= 80rem) and (max-height: 820px) {
+    --ps: 0.8;
+  }
+  @media (width >= 90rem) and (max-height: 820px) {
+    --ps: 1;
+  }
+  @media (width >= 64rem) and (max-height: 700px) {
+    --ps: 0.55;
+  }
+}
+
+/* Link de texto com sublinhado laranja */
+@utility text-link {
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  transition: text-decoration-thickness 150ms var(--ease-standard);
+  &:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+@utility sr-only-focusable {
+  &:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
