@@ -1,0 +1,21 @@
+node_modules
+.next
+out
+build
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+.vercel
+
+# Estado local do Impeccable (cache do hook e relatórios de auditoria)
+.impeccable/hook.cache.json
+.impeccable/audit/
+
+# Ferramentas instaladas pelo plugin do Claude Code (skills, agentes) e config local
+.claude/skills/
+.claude/agents/
+.claude/settings.local.json
+
+# Estudos de imagem descartados (fora do site; ficam só na máquina)
+reference/fotos-nao-usadas/
