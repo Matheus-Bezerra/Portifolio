@@ -17,7 +17,7 @@ export const contactSchema = z
     message: z
       .string()
       .trim()
-      .min(10, "Conte um pouco mais (mínimo de 10 caracteres)")
+      .min(1, "Escreva sua mensagem")
       .max(1000, "Use até 1000 caracteres"),
   })
   .transform((data) => ({
