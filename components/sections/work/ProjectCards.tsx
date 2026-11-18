@@ -74,7 +74,6 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
         {project.technologies && (
           <TechInline
             items={project.technologies}
-            limit={workIntro.techPreview}
             className="text-[12px] md:text-[13px]"
           />
         )}
