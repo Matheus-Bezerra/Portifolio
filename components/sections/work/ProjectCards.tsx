@@ -148,6 +148,9 @@ export function SecondaryProjectCard({ project }: { project: Project }) {
           {project.headline}
         </p>
         <p className="type-small">{project.summary}</p>
+        {project.technologies && (
+          <TechInline items={project.technologies} className="text-[12px] md:text-[13px]" />
+        )}
         {project.links.map((link) => (
           <TextLink
             key={link.href}
@@ -187,6 +190,9 @@ export function ComplementaryProjectCard({ project }: { project: Project }) {
           {project.summaryShort ?? project.summary}
         </p>
         <p className="hidden type-small md:block">{project.summary}</p>
+        {project.technologies && (
+          <TechInline items={project.technologies} className="text-[12px] md:text-[13px]" />
+        )}
         {project.links.map((link) => (
           <TextLink
             key={link.href}
