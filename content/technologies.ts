@@ -2,8 +2,6 @@ import type { TechnologyGroup } from "@/types/content";
 
 export const technologiesIntro = {
   title: "Tecnologias que uso",
-  legendTerm: "Sublinhado",
-  legendText: " = tecnologias principais",
 } as const;
 
 export const technologyGroups: TechnologyGroup[] = [
@@ -11,8 +9,8 @@ export const technologyGroups: TechnologyGroup[] = [
     id: "interfaces",
     title: "Interfaces e produtos web",
     items: [
-      { name: "React", primary: true },
-      { name: "TypeScript", primary: true },
+      { name: "React" },
+      { name: "TypeScript" },
       { name: "JavaScript" },
       { name: "Tailwind CSS" },
       { name: "TanStack" },
@@ -24,9 +22,9 @@ export const technologyGroups: TechnologyGroup[] = [
     id: "backend",
     title: "Back-end e APIs",
     items: [
-      { name: "Java", primary: true },
-      { name: "Spring Boot", primary: true },
-      { name: "Node.js", primary: true },
+      { name: "Java" },
+      { name: "Spring Boot" },
+      { name: "Node.js" },
       { name: "NestJS" },
       { name: "Fastify" },
       { name: "Express" },
@@ -38,7 +36,7 @@ export const technologyGroups: TechnologyGroup[] = [
     id: "apps",
     title: "Aplicativos",
     items: [
-      { name: "React Native", primary: true },
+      { name: "React Native" },
       { name: "Expo" },
       { name: "Expo Router" },
       { name: "NativeWind" },
@@ -48,7 +46,7 @@ export const technologyGroups: TechnologyGroup[] = [
     id: "dados",
     title: "Dados e integrações",
     items: [
-      { name: "PostgreSQL", primary: true },
+      { name: "PostgreSQL" },
       { name: "MySQL" },
       { name: "Oracle" },
       { name: "MongoDB" },
@@ -65,7 +63,7 @@ export const technologyGroups: TechnologyGroup[] = [
     id: "infra",
     title: "Infraestrutura e entrega",
     items: [
-      { name: "Docker", primary: true },
+      { name: "Docker" },
       { name: "Kubernetes" },
       { name: "S3" },
       { name: "GCP" },

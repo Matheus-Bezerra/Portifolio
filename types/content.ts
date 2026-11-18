@@ -56,7 +56,7 @@ export interface Experience {
 export interface TechnologyGroup {
   id: string;
   title: string;
-  items: { name: string; primary?: boolean }[];
+  items: { name: string }[];
 }
 
 export type ProjectTier = "featured" | "secondary" | "complementary";
