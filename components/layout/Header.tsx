@@ -156,7 +156,7 @@ export function Header() {
               alt=""
               width={site.logo.width}
               height={site.logo.height}
-              className="h-5 w-auto lg:h-[26px]"
+              className="h-7 w-auto lg:h-[26px]"
             />
           </a>
 
