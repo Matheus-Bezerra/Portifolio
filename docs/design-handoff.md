@@ -183,6 +183,13 @@ O H1 escala com `clamp(34px, 4vw + 1rem, 56px)`, e os H2 com `clamp(28px, 2.4vw 
 - **Cursor da marca** (ponto e anel laranja, só com mouse) e **botão fixo de WhatsApp** (some no Contato e no rodapé).
 - Regra geral: movimento automático dura no máximo 5 s ou depende da rolagem do visitante.
 
+### Microinterações (v1.2, aprovadas por Matheus)
+
+- **Cards de trabalhos:** no hover/foco, traço laranja se desenha sob o nome do projeto (300 ms), a capa dá zoom a 1.03 e o ↗ dos links desliza 2 px.
+- **TechList:** um único traço laranja desliza verticalmente (300 ms) para a área ativa.
+- **Formulário:** o rótulo do campo em foco fica laranja, a mensagem de erro entra deslizando de cima (200 ms) e a seta do botão avança no hover.
+- Todas ficam estáticas com `prefers-reduced-motion`. A entrada dos blocos ao rolar já existia (`Reveal`).
+
 ### Alternativa para movimento reduzido
 
 Com `prefers-reduced-motion: reduce`, ou com a janela abaixo de 640 px de altura, não há palco fixo:
