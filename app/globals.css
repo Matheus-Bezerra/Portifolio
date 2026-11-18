@@ -146,53 +146,128 @@
   display: grid;
   place-items: center;
   background: var(--color-bg);
-  clip-path: inset(0 0 0 0);
-  transition: clip-path 600ms var(--ease-expressive);
+  /* Saída só com transform/opacity: roda na GPU, sem repintar a tela cheia */
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  transition: transform 600ms var(--ease-expressive);
   /* Se o JavaScript não rodar, a abertura some sozinha e não prende o conteúdo */
   animation: intro-failsafe 400ms linear 4.5s forwards;
 }
 
 .intro-mark {
+  position: relative;
   width: clamp(180px, 18vw, 260px);
-  height: auto;
-  overflow: visible;
-  transition:
-    transform 600ms var(--ease-expressive),
-    opacity 300ms var(--ease-standard);
+  aspect-ratio: 1;
+  transition: opacity 300ms var(--ease-standard);
 }
 
-.intro-stroke {
-  stroke: var(--color-accent);
-  stroke-width: 3;
-  stroke-linejoin: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: intro-draw 900ms cubic-bezier(0.65, 0, 0.35, 1) 100ms forwards;
+.intro-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Revelação em varredura, em janelas: a janela desliza para dentro e o conteúdo desliza
+   no sentido oposto, então a logo fica parada e só a borda da revelação se move.
+   Só transform, então roda na GPU mesmo com a thread principal ocupada.
+   "M" e "B" são janelas separadas (corte em x = 202 do monograma, 55,5% da largura). */
+.intro-win {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  will-change: transform;
+  animation: intro-wipe var(--dur, 800ms) var(--ease, ease) var(--d) both;
+}
+
+/* Janelas ajustadas às letras (monograma ocupa de 19,5% a 80,5% da largura; corte M/B em 55,5%),
+   para que todo o tempo da varredura aconteça sobre a letra. */
+.intro-win-m {
+  left: 19%;
+  width: 37.2%;
+  --full: 268.82%;
+  --off: -51.08%;
+  /* O "M" nasce primeiro, com fade, de forma gradual */
+  --dur: 800ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  animation:
+    intro-wipe var(--dur) var(--ease) var(--d) both,
+    intro-appear 500ms var(--ease-standard) var(--d) both;
+}
+
+.intro-win-b {
+  left: 55.5%;
+  width: 25.5%;
+  --full: 392.16%;
+  --off: -217.65%;
+  /* O "B" completa a logo logo em seguida, terminando firme */
+  --dur: 550ms;
+  --ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.intro-win-move {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  animation: intro-wipe-inner var(--dur) var(--ease) var(--d) both;
+}
+
+.intro-win-full {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--off);
+  width: var(--full);
 }
 
 .intro-fill {
   fill: var(--color-accent);
-  opacity: 0;
-  animation: intro-fade 350ms var(--ease-standard) 850ms forwards;
+}
+
+/* Faixa clara que corre à frente da revelação principal */
+.intro-fill-lead {
+  fill: color-mix(in srgb, var(--color-accent) 50%, white);
 }
 
 .intro-ring {
+  fill: none;
   stroke: var(--color-accent);
   stroke-width: 2.5;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  transform: rotate(-90deg);
-  animation: intro-draw 700ms var(--ease-expressive) 750ms forwards;
+}
+
+.intro-dot {
+  fill: var(--color-accent);
+}
+
+/* Anel tracejado: entra girando no sentido oposto, como no hero */
+.intro-dashed {
+  fill: none;
+  stroke: var(--color-text);
+  stroke-opacity: 0.22;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 9;
+}
+
+.intro-dashed-layer {
+  will-change: transform, opacity;
+  animation: intro-dashed 900ms var(--ease-expressive) 800ms both;
+}
+
+/* O anel entra girando e escalando; os pontos acompanham a rotação */
+.intro-ring-layer {
+  will-change: transform, opacity;
+  animation: intro-ring 850ms var(--ease-expressive) 800ms both;
 }
 
 /* Saída: a cortina sobe; o anel cresce em direção ao anel do hero */
 .intro[data-phase="exit"] {
-  clip-path: inset(0 0 100% 0);
+  transform: translate3d(0, -100%, 0);
   pointer-events: none;
 }
 
 .intro[data-phase="exit"] .intro-mark {
-  transform: scale(1.9);
   opacity: 0;
 }
 
@@ -200,15 +275,35 @@ html.intro-lock {
   overflow: hidden;
 }
 
-@keyframes intro-draw {
-  to {
-    stroke-dashoffset: 0;
+@keyframes intro-wipe {
+  from {
+    transform: translate3d(-100%, 0, 0);
   }
 }
 
-@keyframes intro-fade {
-  to {
-    opacity: 1;
+@keyframes intro-wipe-inner {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@keyframes intro-appear {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes intro-dashed {
+  from {
+    opacity: 0;
+    transform: rotate(140deg) scale(0.86);
+  }
+}
+
+@keyframes intro-ring {
+  from {
+    opacity: 0;
+    transform: rotate(-110deg) scale(0.88);
   }
 }
 
