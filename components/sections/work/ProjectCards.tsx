@@ -48,7 +48,7 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
           {project.category}
         </p>
         <h3 className="font-display text-[24px] leading-8 font-semibold tracking-[-0.015em] md:text-[30px] md:leading-[38px]">
-          {project.name}
+          <span className="card-title">{project.name}</span>
         </h3>
         <p className="text-[15px] leading-[22px] font-medium text-text md:text-[17px] md:leading-[26px]">
           {project.headline}
@@ -142,7 +142,7 @@ export function SecondaryProjectCard({ project }: { project: Project }) {
       <div className="flex flex-col gap-2 px-1.5 pt-1 pb-1.5 md:gap-3 lg:col-span-5 lg:col-start-8 lg:py-2 lg:pr-3 lg:pl-4">
         <p className="type-meta text-[12px] md:text-[13px]">{project.category}</p>
         <h3 className="font-display text-[20px] leading-7 font-semibold md:text-[26px] md:leading-[34px]">
-          {project.name}
+          <span className="card-title">{project.name}</span>
         </h3>
         <p className="text-[15px] leading-[22px] font-medium text-text md:text-[16px] md:leading-6">
           {project.headline}
@@ -184,7 +184,7 @@ export function ComplementaryProjectCard({ project }: { project: Project }) {
       <div className="flex min-w-0 flex-col gap-1.5 md:gap-3">
         <p className="mt-1 hidden type-meta md:block">{project.category}</p>
         <h4 className="font-display text-[16px] leading-[22px] font-semibold md:text-[19px] md:leading-[26px]">
-          {project.name}
+          <span className="card-title">{project.name}</span>
         </h4>
         <p className="type-small text-[13px] leading-5 md:hidden">
           {project.summaryShort ?? project.summary}

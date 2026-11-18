@@ -22,7 +22,7 @@ export function ProjectMedia({ name, image, sizes, className }: ProjectMediaProp
           alt={image.alt}
           fill
           sizes={sizes}
-          className="object-cover transition-transform duration-500 ease-(--ease-standard) group-focus-within:scale-[1.02] group-hover:scale-[1.02] motion-reduce:transition-none"
+          className="object-cover transition-transform duration-500 ease-(--ease-standard) group-focus-within:scale-[1.03] group-hover:scale-[1.03] motion-reduce:transition-none"
         />
       ) : (
         <div
