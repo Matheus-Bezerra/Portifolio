@@ -19,10 +19,10 @@ export const site = {
     height: 120,
   },
   portrait: {
-    src: "/assets/photos/matheus_sem_fundo.png",
+    src: "/assets/photos/matheus_lateral_pessoal.png",
     alt: "Matheus Bezerra",
-    width: 1536,
-    height: 1024,
+    width: 1111,
+    height: 1416,
   },
   knowsAbout: [
     "Engenharia de software",

@@ -119,7 +119,7 @@ function HeroVisual() {
             preload
             fetchPriority="high"
             sizes="(min-width: 1440px) 840px, (min-width: 768px) 700px, 560px"
-            className="object-cover object-[83%_100%]"
+            className="object-cover object-[50%_0%]"
           />
         </HeroVisualPart>
 
