@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import { AnimatePresence, useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 import { Reveal } from "@/components/motion/Reveal";
@@ -19,6 +19,22 @@ export function Technologies() {
   const uid = useId();
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const hoverTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const list = useRef<HTMLDivElement>(null);
+  /** Posição vertical do traço laranja, que desliza de uma área para a outra. */
+  const [markerY, setMarkerY] = useState<number | null>(null);
+
+  useEffect(() => {
+    const place = () => {
+      const tab = tabs.current[active];
+      if (tab) setMarkerY(tab.offsetTop + tab.offsetHeight / 2 - 1);
+    };
+    place();
+    const el = list.current;
+    if (!el) return;
+    const observer = new ResizeObserver(place);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [active]);
 
   const focusTab = (i: number) => {
     const next = (i + technologyGroups.length) % technologyGroups.length;
@@ -58,12 +74,20 @@ export function Technologies() {
 
           {/* Desktop: lista de abas */}
           <div
+            ref={list}
             role="tablist"
             aria-orientation="vertical"
             aria-labelledby="tecnologias-titulo"
-            className="hidden border-t border-line lg:flex lg:flex-col"
+            className="relative hidden border-t border-line lg:flex lg:flex-col"
             onKeyDown={onKeyDown}
           >
+            {markerY !== null && (
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute top-0 left-10 h-0.5 w-6 bg-accent transition-transform duration-300 ease-(--ease-standard) motion-reduce:transition-none"
+                style={{ transform: `translateY(${markerY}px)` }}
+              />
+            )}
             {technologyGroups.map((g, i) => {
               const selected = i === active;
               return (
@@ -92,13 +116,7 @@ export function Technologies() {
                   <span className="w-6 text-[11px] leading-4 font-semibold tracking-[0.14em] text-text-3">
                     {pad(i + 1)}
                   </span>
-                  <span
-                    aria-hidden="true"
-                    className={cn(
-                      "h-0.5 bg-accent transition-[width] duration-300 motion-reduce:transition-none",
-                      selected ? "w-6" : "w-0",
-                    )}
-                  />
+                  <span aria-hidden="true" className="h-0.5 w-6" />
                   <span className="flex-1 font-display text-[17px] leading-6 font-semibold">
                     {g.title}
                   </span>
