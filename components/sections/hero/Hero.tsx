@@ -188,7 +188,7 @@ export function Hero() {
           </HeroItem>
         </HeroSequence>
 
-        <div className="-mx-5 md:col-span-6 md:col-start-7 md:mx-0 md:translate-x-6 md:self-end lg:translate-x-8 lg:self-center xl:translate-x-12 ref:translate-x-24">
+        <div className="-mx-5 md:col-span-6 md:col-start-7 md:mx-0 md:translate-x-6 md:self-center lg:translate-x-8 xl:translate-x-12 ref:translate-x-24">
           <HeroVisual />
         </div>
       </div>
