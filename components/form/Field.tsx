@@ -43,8 +43,11 @@ export function Field({
   children,
 }: FieldProps) {
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-[13px] font-medium text-text">
+    <div className="group/field flex flex-col gap-2">
+      <label
+        htmlFor={id}
+        className="text-[13px] font-medium text-text transition-colors duration-150 group-focus-within/field:text-accent motion-reduce:transition-none"
+      >
         {label}
         {required && (
           <span aria-hidden="true" className="text-accent">
@@ -73,7 +76,7 @@ export function Field({
           {error ? (
             <p
               id={`${id}-erro`}
-              className="flex items-center gap-1.5 text-[13px] leading-5 text-error"
+              className="field-error flex items-center gap-1.5 text-[13px] leading-5 text-error"
             >
               {!inlineIcon && <AlertCircle size={16} />}
               {error}

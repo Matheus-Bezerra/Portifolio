@@ -414,7 +414,7 @@ export function ContactForm() {
           aria-busy={submitting}
           aria-disabled={submitting}
           className={cn(
-            "inline-flex h-[52px] w-full shrink-0 items-center justify-center gap-2.5 rounded-full px-[26px] text-[15px] font-semibold whitespace-nowrap transition-colors duration-200 md:w-auto",
+            "group/submit inline-flex h-[52px] w-full shrink-0 items-center justify-center gap-2.5 rounded-full px-[26px] text-[15px] font-semibold whitespace-nowrap transition-colors duration-200 md:w-auto",
             "bg-accent text-bg hover:bg-accent-hover focus-visible:outline-text active:translate-y-px active:bg-accent-pressed",
             submitting && "cursor-progress",
           )}
@@ -430,7 +430,10 @@ export function ContactForm() {
           ) : (
             <>
               {formCopy.submit}
-              <ArrowRight size={18} />
+              <ArrowRight
+                size={18}
+                className="transition-transform duration-200 ease-(--ease-standard) group-hover/submit:translate-x-1 group-focus-visible/submit:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none"
+              />
             </>
           )}
         </button>
