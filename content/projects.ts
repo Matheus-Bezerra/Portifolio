@@ -58,7 +58,7 @@ export const projects: Project[] = [
       {
         kind: "case",
         label: "Ver case completo",
-        href: "https://github.com/Matheus-Bezerra/copa-manager",
+        href: "https://copa-manager.vercel.app/",
       },
       {
         kind: "demo",
