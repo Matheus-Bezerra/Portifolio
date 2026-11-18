@@ -108,7 +108,7 @@ Fontes: Google Fonts, Sora 600 e Inter 400/500/600, com `display=swap`. Pré-car
 | **SegmentIndicator** | 4 traços de 3 px: ativo laranja, demais `#393939`. Rótulos em 12 px, `aria-hidden`; não são clicáveis. |
 | **CTABand** | Superfície `#202020` com borda, pergunta em Sora 24 (mobile 20) e botão primário. Aparece no fim de Como trabalho e no fim de Trabalhos. |
 | **TimelineItem** | Período (coluna de 170 px) e conteúdo: empresa, cargo, descrição e tecnologias em texto separado por barras. **Atual:** ponto laranja com halo e rótulo “Atual” em laranja. **Anteriores:** ponto vazado `#7A766F`. A linha vertical é de 1 px `#393939`. No mobile, vira card; o atual tem um filete laranja de 2 px à esquerda. |
-| **TechList** | Por área: título em Sora 15 e tecnologias em Inter 16/30. **Principais:** `#F5F2ED` 600 com sublinhado laranja de 1 px. **Demais:** `#B7B3AD`. Barras `/` em `#5A5650`, `aria-hidden`; cada barra fica presa ao item anterior (`white-space: nowrap`). Sem pílulas, logos ou faixa animada. |
+| **TechList** | Abas por área. Desktop: à esquerda, lista de áreas (número 01–05, nome em Sora 17 e contador); a ativa fica em `#F5F2ED` com traço laranja de 24×2 px, troca por clique, hover ou setas ↑/↓. À direita, as tecnologias da área em Sora 30/40, em 2 colunas, com filetes `#393939`. Mobile: acordeão com a primeira área aberta e itens em texto separado por barras. Sem destaque de principais, pílulas, logos ou faixa animada. |
 | **ProjectCard L** | Copa Manager. Superfície, borda `#4A4741` e filete laranja interno de 2 px no topo. Imagem com 7 colunas e texto com 5. Ações: case (contorno), demonstração e código (links). |
 | **ProjectCard M** | FiscalFlow. Mesma grade 7+5, imagem mais baixa, sem filete laranja. |
 | **ProjectCard S** | Complementares, 4 colunas (mobile: card horizontal com miniatura 1:1). Ao adicionar projetos, entram novos cards S na mesma grade. **Hover dos cards:** borda `#5A5650` e o card sobe 2 px. |
@@ -137,7 +137,7 @@ Um degradê inferior de 120 px funde a abertura com a seção seguinte. No mobil
 
 **Experiência.** No desktop, a coluna esquerda (título e texto) fica `sticky` a 120 px do topo enquanto a linha do tempo rola. No mobile, a descrição é a versão resumida já aprovada, e as tecnologias mostram até 4 itens e “+N”.
 
-**Tecnologias.** Mesmo conteúdo e formato do wireframe V2: título “Tecnologias que uso”, legenda do sublinhado e 5 áreas.
+**Tecnologias.** Título “Tecnologias que uso” e 5 áreas em abas (desktop) ou acordeão (mobile), sem legenda nem destaque de principais.
 
 **Trabalhos selecionados.** Título sem rótulo acima. O destaque do Copa Manager é moderado. O espaço “Próximo projeto” é só referência da grade e **não é renderizado** no site.
 
