@@ -82,6 +82,15 @@ export const projects: Project[] = [
       height: 778,
     },
     headline: "Processamento assíncrono de notas fiscais",
+    technologies: [
+      "Java 25",
+      "Spring Boot 4",
+      "RabbitMQ",
+      "PostgreSQL",
+      "Flyway",
+      "Testcontainers",
+      "Docker Compose",
+    ],
     summary: "Validação, filas, idempotência e rastreabilidade.",
     links: [
       {
@@ -103,6 +112,18 @@ export const projects: Project[] = [
       width: 1672,
       height: 941,
     },
+    technologies: [
+      "React",
+      "Next",
+      "TypeScript",
+      "TanStack",
+      "Axios",
+      "MirageJS",
+      "Faker",
+      "Chakra UI",
+      "React Hook Form",
+      "Yup",
+    ],
     summary: "Dashboard administrativo com dados, gráficos e formulários.",
     links: [
       {
@@ -127,6 +148,21 @@ export const projects: Project[] = [
     },
     summary:
       "Experiência de marketplace, da descoberta ao pedido. Back-end externo — foco na aplicação.",
+    technologies: [
+      "Expo 54",
+      "React Native",
+      "React 19",
+      "TypeScript",
+      "Expo Router",
+      "TanStack Query",
+      "Axios",
+      "Zustand",
+      "NativeWind",
+      "Tailwind CSS",
+      "React Hook Form",
+      "Yup",
+      "Reanimated",
+    ],
     summaryShort: "Da descoberta ao pedido. Back-end externo — foco na aplicação.",
     links: [
       {
