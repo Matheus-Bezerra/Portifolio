@@ -172,7 +172,7 @@ export function ComplementaryProjectCard({ project }: { project: Project }) {
     <article
       className={cn(
         cardBase,
-        "flex items-start gap-3.5 border-line p-3 md:flex-col md:gap-3 md:p-4",
+        "flex h-full items-start gap-3.5 border-line p-3 md:flex-col md:gap-3 md:p-4",
       )}
     >
       <ProjectMedia
