@@ -111,10 +111,10 @@ Sou Matheus Bezerra, engenheiro de software com experiência no desenvolvimento 
 Conversar sobre um projeto
 
 **CTA secundário**  
-Conhecer meu trabalho
+Minha trajetória
 
 **Direção dos CTAs**  
-A abertura não terá botão para baixar o currículo. O foco principal será iniciar uma conversa sobre um projeto, mantendo apenas uma ação secundária para conhecer o trabalho de Matheus.
+A abertura não terá botão para baixar o currículo. O foco principal será iniciar uma conversa sobre um projeto, mantendo apenas uma ação secundária para conhecer a trajetória de Matheus.
 
 ### Alternativa mais direta e comercial
 
