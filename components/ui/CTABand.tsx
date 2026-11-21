@@ -6,10 +6,14 @@ interface CTABandProps {
   question: string;
   label: string;
   href: string;
+  /** Abre em nova aba (WhatsApp, GitHub). */
+  external?: boolean;
+  /** Botão de contorno, para chamadas que não são "Conversar sobre um projeto". */
+  secondary?: boolean;
 }
 
-/** Faixa de chamada no fim de "Como trabalho" e de "Trabalhos". */
-export function CTABand({ question, label, href }: CTABandProps) {
+/** Faixa de chamada no fim de "Como trabalho" (WhatsApp) e de "Trabalhos" (GitHub). */
+export function CTABand({ question, label, href, external, secondary }: CTABandProps) {
   return (
     <Reveal
       variant="fadeUp"
@@ -21,8 +25,16 @@ export function CTABand({ question, label, href }: CTABandProps) {
         text={question}
         delay={0.15}
       />
-      <ButtonLink href={href} fullWidthMobile className="shrink-0">
+      <ButtonLink
+        href={href}
+        variant={secondary ? "secondary" : "primary"}
+        arrow
+        fullWidthMobile
+        className="shrink-0"
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : null)}
+      >
         {label}
+        {external && <span className="sr-only"> (abre em nova aba)</span>}
       </ButtonLink>
     </Reveal>
   );

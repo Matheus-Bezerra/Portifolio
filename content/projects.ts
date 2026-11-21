@@ -1,4 +1,5 @@
 import type { Project } from "@/types/content";
+import { social } from "@/content/contact";
 
 export const workIntro = {
   title: "Trabalhos selecionados",
@@ -7,9 +8,12 @@ export const workIntro = {
   /** Quantas tecnologias aparecem antes do "+N" no card principal. */
   techPreview: 5,
   cta: {
-    question: "Quer construir uma solução como essas?",
-    label: "Conversar sobre um projeto",
-    href: "#contato",
+    /** RASCUNHO — texto pendente de aprovação. */
+    question: "Quer ver mais do que já construí?",
+    label: "Ver mais no GitHub",
+    href: social.github,
+    external: true,
+    secondary: true,
   },
 } as const;
 
