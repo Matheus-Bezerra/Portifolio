@@ -17,7 +17,7 @@ Página única com âncoras, nesta ordem:
 | 03 | Serviços | `#servicos` | Palco fixo com 4 serviços |
 | 04 | Como trabalho | `#como-trabalho` | Logo depois de Serviços; palco fixo com ciclo orbital; fecha com CTA |
 | 05 | Experiência | `#experiencia` | Linha do tempo |
-| 06 | Tecnologias | `#tecnologias` | Uma linha por área, em texto |
+| 06 | Tecnologias | `#tecnologias` | Título fixo + uma linha por área, em texto |
 | 07 | Trabalhos selecionados | `#trabalhos` | Copa Manager → FiscalFlow → complementares |
 | 08 | Contato | `#contato` | Texto + botão de WhatsApp + e-mail e LinkedIn |
 | — | Rodapé | — | Assinatura, navegação, links, currículo, topo |
@@ -105,7 +105,7 @@ Fontes: Google Fonts, Sora 600 e Inter 400/500/600, com `display=swap`. Pré-car
 | **SegmentIndicator** | 4 traços de 3 px: ativo laranja, demais `#393939`. Rótulos em 12 px, `aria-hidden`; não são clicáveis. |
 | **CTABand** | Superfície `#202020` com borda, pergunta em Sora 24 (mobile 20) e botão primário. Aparece no fim de Como trabalho e no fim de Trabalhos. |
 | **TimelineItem** | Período (coluna de 170 px) e conteúdo: empresa, cargo, descrição e tecnologias em texto separado por barras. **Atual:** ponto laranja com halo e rótulo “Atual” em laranja. **Anteriores:** ponto vazado `#7A766F`. A linha vertical é de 1 px `#393939`. No mobile, vira card; o atual tem um filete laranja de 2 px à esquerda. |
-| **TechList** | Uma linha por área, com todas as tecnologias à vista (sem abas). Filete de 1 px `#5A5650` que se desenha no topo e filetes `#393939` entre as linhas. Desktop: número 01–05 e nome da área em Sora 20 à esquerda (coluna de até 320 px); tecnologias à direita em Sora 20/36 medium, separadas por barras decorativas. Mobile: nome em cima e tecnologias embaixo, em Sora 17/32. **Hover:** número laranja, texto claro e traço laranja que se desenha sobre o filete. Entrada em sequência. Sem destaque de principais, pílulas, logos ou faixa animada. |
+| **TechList** | Título fixo à esquerda (`sticky`, 120 px do topo, 4 colunas) e 5 áreas em linhas à direita (8 colunas), todas as tecnologias à vista, sem abas. Filetes: `#5A5650` no topo e `#393939` embaixo de cada linha, que se desenham na entrada. Cada linha: número 01–05 e nome da área em Sora 20 (coluna de até 210 px) e tecnologias em Sora 20/36 medium, separadas por barras decorativas. Mobile: título em cima, depois linhas em coluna (nome e tecnologias empilhados, Sora 17/32). Sem hover, sem destaque de principais, pílulas, logos ou faixa animada. |
 | **ProjectCard L** | Copa Manager. Superfície, borda `#4A4741` e filete laranja interno de 2 px no topo. Imagem com 7 colunas e texto com 5. Ações: case (contorno), demonstração e código (links). |
 | **ProjectCard M** | FiscalFlow. Mesma grade 7+5, imagem mais baixa, sem filete laranja. |
 | **ProjectCard S** | Complementares, 4 colunas (mobile: card horizontal com miniatura 1:1). Ao adicionar projetos, entram novos cards S na mesma grade. **Hover dos cards:** borda `#5A5650` e o card sobe 2 px. |
@@ -132,7 +132,7 @@ Um degradê inferior de 120 px funde a abertura com a seção seguinte. No mobil
 
 **Experiência.** No desktop, a coluna esquerda (título e texto) fica `sticky` a 120 px do topo enquanto a linha do tempo rola. No mobile, a descrição é a versão resumida já aprovada, e as tecnologias mostram até 4 itens e “+N”.
 
-**Tecnologias.** Título “Tecnologias que uso” e 5 áreas em linhas, todas visíveis de uma vez, sem legenda nem destaque de principais.
+**Tecnologias.** Título “Tecnologias que uso” e título fixo à esquerda e 5 áreas em linhas à direita, todas visíveis de uma vez, sem legenda nem destaque de principais.
 
 **Trabalhos selecionados.** Título sem rótulo acima. O destaque do Copa Manager é moderado. O espaço “Próximo projeto” é só referência da grade e **não é renderizado** no site.
 
@@ -185,11 +185,9 @@ O H1 escala com `clamp(34px, 4vw + 1rem, 56px)`, e os H2 com `clamp(28px, 2.4vw 
 
 ### Tecnologias e Contato (v1.3, aprovadas por Matheus)
 
-- **TechList, entrada:** o filete do topo se desenha (0,9 s). Cada linha sobe ao chegar na tela e, em seguida, as tecnologias entram uma a uma (fade + 6 px, ≈ 35 ms de intervalo).
-- **TechList, linha ativa pela rolagem:** a linha que cruza a faixa central da tela (10% da altura) fica em destaque, com número laranja, texto claro e traço laranja desenhado sobre o filete (500 ms). As demais ficam em `#B7B3AD`. Substitui o hover como interação principal e funciona no celular; no desktop o hover soma o mesmo efeito.
-- **TechList, tecnologia individual:** só com mouse, o nome fica laranja e sobe 2 px (200 ms).
+- **TechList:** o filete do topo e o de cada linha se desenham na entrada e a linha sobe com fade (sem cascata, linha ativa ou hover). O título fica fixo no desktop enquanto as linhas passam.
 - **Contato:** os filetes dos dois blocos se desenham na entrada, o texto sobe e as linhas de e-mail e LinkedIn entram em sequência. No hover, o ícone cresce e fica laranja, o texto e a seta deslizam 4 px e um traço laranja se desenha sobre o filete. A seta do botão de WhatsApp avança 4 px.
-- Com `prefers-reduced-motion`, tudo vira um fade de 120 ms, sem subida, cascata nem deslocamento.
+- Com `prefers-reduced-motion`, tudo vira um fade de 120 ms, sem subida nem deslocamento.
 
 ### Alternativa para movimento reduzido
 
