@@ -11,8 +11,6 @@ import {
 import { useLenis } from "lenis/react";
 import { useMotionValueEvent, useScroll } from "motion/react";
 
-/** Cada passo consome ≈ 38vh de rolagem (o handoff previa 60vh; reduzido a pedido para trocar com menos rolagem). */
-export const STEP_VH = 38;
 /** Abaixo desta altura de janela, ou com movimento reduzido, não há palco fixo. */
 const MIN_STAGE_HEIGHT = 640;
 
@@ -86,12 +84,13 @@ export function useScrollStage(count: number, enabled: boolean) {
       const el = containerRef.current;
       if (!el) return;
       const top = el.getBoundingClientRect().top + window.scrollY;
-      const stepPx = (window.innerHeight * STEP_VH) / 100;
+      /* Rolagem útil = altura do contêiner − janela, dividida pelos passos (igual ao cálculo do progresso) */
+      const stepPx = (el.offsetHeight - window.innerHeight) / count;
       const target = top + stepPx * (step + 0.5);
       if (lenis) lenis.scrollTo(target, { duration: 0.9 });
       else window.scrollTo({ top: target, behavior: "smooth" });
     },
-    [lenis],
+    [lenis, count],
   );
 
   /** ↑ ↓ / PageUp / PageDown avançam; nas pontas, o comportamento normal da página continua. */

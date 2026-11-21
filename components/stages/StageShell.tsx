@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, type ReactNode, type RefObject } from "react";
-import { STEP_VH } from "./useScrollStage";
 
 interface StageShellProps {
   count: number;
@@ -14,7 +13,8 @@ interface StageShellProps {
 }
 
 /**
- * Contêiner de rolagem (100vh + N × 60vh) com o palco sticky em tela cheia, sem card.
+ * Contêiner de rolagem (100dvh + N × --stage-step dvh) com o palco sticky em tela cheia, sem card.
+ * Usa dvh (não svh) para acompanhar a barra do Safari: o palco ocupa exatamente a janela visível.
  * Inclui marcadores de snap leve (scroll-snap "proximity") no centro de cada passo
  * e a região que anuncia "Serviço X de 4" / "Etapa X de 4".
  */
@@ -38,14 +38,14 @@ export function StageShell({
     <div
       ref={containerRef}
       className="relative"
-      style={{ height: `calc(100vh + ${count * STEP_VH}vh)` }}
+      style={{ height: `calc(100dvh + ${count} * var(--stage-step) * 1dvh)` }}
     >
       {Array.from({ length: count }, (_, k) => (
         <span
           key={k}
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 h-px snap-start"
-          style={{ top: `calc(${(k + 0.5) * STEP_VH}vh + var(--header-offset))` }}
+          style={{ top: `calc((${k} + 0.5) * var(--stage-step) * 1dvh + var(--header-offset))` }}
         />
       ))}
       <div
@@ -54,7 +54,7 @@ export function StageShell({
         aria-label={label}
         tabIndex={0}
         onKeyDown={onKeyDown}
-        className="sticky top-0 flex h-svh flex-col pt-[72px] pb-6 lg:pt-24 lg:pb-8"
+        className="sticky top-0 flex h-dvh flex-col pt-[72px] pb-6 lg:pt-24 lg:pb-8"
       >
         {/* Brilho laranja discreto atrás da ilustração (sem moldura) */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-clip">

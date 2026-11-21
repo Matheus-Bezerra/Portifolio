@@ -59,6 +59,8 @@
 @layer base {
   :root {
     --header-offset: 96px;
+    /* Rolagem por passo dos palcos de Serviços e Como trabalho (em vh) */
+    --stage-step: 30;
     color-scheme: dark;
   }
 
