@@ -203,6 +203,8 @@ export function Header() {
 
           <ButtonLink
             href={hero.primaryCta.href}
+            target="_blank"
+            rel="noopener noreferrer"
             size="header"
             arrow={false}
             /* Entre 1024 e 1199 px a navegação completa não cabe junto do CTA */
@@ -285,7 +287,8 @@ export function Header() {
                 href={hero.primaryCta.href}
                 size="lg"
                 className="w-full"
-                onClick={(e) => goTo(e, hero.primaryCta.href)}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 {hero.primaryCta.label}
               </ButtonLink>

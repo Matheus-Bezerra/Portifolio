@@ -179,7 +179,13 @@ export function Hero() {
             <p className="max-w-[540px] type-lead">{hero.lead}</p>
           </HeroItem>
           <HeroItem className="mt-1 flex flex-col gap-3 sm:max-md:flex-row sm:max-md:items-center lg:mt-2 lg:flex-row lg:items-center lg:gap-4">
-            <ButtonLink href={hero.primaryCta.href} size="lg" fullWidthMobile>
+            <ButtonLink
+              href={hero.primaryCta.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              size="lg"
+              fullWidthMobile
+            >
               {hero.primaryCta.label}
             </ButtonLink>
             <ButtonLink href={hero.secondaryCta.href} variant="secondary" size="lg" fullWidthMobile>

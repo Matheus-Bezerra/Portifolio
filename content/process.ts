@@ -1,4 +1,5 @@
 import type { ProcessStep } from "@/types/content";
+import { whatsappLink } from "@/content/contact";
 
 export const processIntro = {
   title: "Como trabalho",
@@ -6,7 +7,8 @@ export const processIntro = {
   cta: {
     question: "Tem uma ideia ou produto que precisa construir ou evoluir?",
     label: "Conversar sobre um projeto",
-    href: "#contato",
+    href: whatsappLink(),
+    external: true,
   },
 } as const;
 
