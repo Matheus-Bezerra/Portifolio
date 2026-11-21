@@ -19,7 +19,7 @@ export interface NavItem {
   label: string;
 }
 
-/** Tipos de projeto aceitos no formulário; também usados pelos CTAs dos serviços. */
+/** Tipos de projeto usados nos CTAs dos serviços (mensagem do WhatsApp). */
 export type ProjectType = "site" | "sistema" | "aplicativo" | "api" | "outro";
 
 export type ServiceIllustrationKind = "site" | "dashboard" | "mobile" | "api";

@@ -5,13 +5,11 @@ import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 import { Chat } from "@/components/icons";
 import { useIntro } from "@/components/intro/IntroContext";
-import { social } from "@/content/contact";
+import { whatsappLink } from "@/content/contact";
 import { ease } from "@/lib/motion";
 
 const LABEL = "Chamar no WhatsApp";
-/** Mensagem inicial da conversa; o visitante pode editar antes de enviar. */
-const GREETING = "Olá, Matheus! Vi seu portfólio e gostaria de conversar sobre um projeto.";
-const href = `${social.whatsappHref}?text=${encodeURIComponent(GREETING)}`;
+const href = whatsappLink();
 
 /**
  * Botão fixo no canto direito: bola laranja com o ícone de mensagem que abre

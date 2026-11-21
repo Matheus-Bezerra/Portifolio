@@ -3,7 +3,7 @@
 import { useReducedMotion } from "motion/react";
 import * as m from "motion/react-m";
 import { ArrowDown, ArrowRight } from "@/components/icons";
-import { requestContactPrefill } from "@/components/form/prefill";
+import { whatsappLink } from "@/content/contact";
 import { buttonClasses } from "@/components/ui/Button";
 import { SegmentIndicator } from "@/components/ui/SegmentIndicator";
 import { Stagger, StaggerItem } from "@/components/motion/Reveal";
@@ -40,13 +40,14 @@ function ContactCta({
 }) {
   return (
     <a
-      href="#contato"
-      onClick={() => requestContactPrefill(service.projectType)}
+      href={whatsappLink(service.projectType)}
+      target="_blank"
+      rel="noopener noreferrer"
       className={className}
     >
       {label}
       {arrow && <ArrowRight size={18} />}
-      <span className="sr-only"> — {service.title}</span>
+      <span className="sr-only"> — {service.title} (abre em nova aba)</span>
     </a>
   );
 }
