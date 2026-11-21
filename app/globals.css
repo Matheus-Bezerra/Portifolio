@@ -60,7 +60,7 @@
   :root {
     --header-offset: 96px;
     /* Rolagem por passo dos palcos de Serviços e Como trabalho (em vh) */
-    --stage-step: 30;
+    --stage-step: 35;
     color-scheme: dark;
   }
 
