@@ -52,7 +52,6 @@ export const social = {
 } as const;
 
 export const contactChannels: ContactChannel[] = [
-  { id: "email", label: email, href: social.emailHref, icon: "mail", external: false },
   {
     id: "whatsapp",
     label: "Chamar no WhatsApp",
@@ -61,4 +60,5 @@ export const contactChannels: ContactChannel[] = [
     external: true,
   },
   { id: "linkedin", label: "LinkedIn", href: social.linkedin, icon: "person", external: true },
+  { id: "email", label: email, href: social.emailHref, icon: "mail", external: false },
 ];
