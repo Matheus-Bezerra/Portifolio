@@ -1,13 +1,23 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useRef, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 import {
   useMotionValue,
   useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
+  type MotionStyle,
   type MotionValue,
+  type TargetAndTransition,
   type Variants,
 } from "motion/react";
 import * as m from "motion/react-m";
@@ -80,6 +90,93 @@ export function HeroItem({ children, className }: { children: ReactNode; classNa
   );
 }
 
+/* ------------------------------------------------------------------
+   Celular (touch, < 768 px): a composição se monta conforme a rolagem, em vez
+   da entrada única, e depois respira sozinha. Sem movimento reduzido.
+   Desktop e movimento reduzido seguem a entrada normal.
+   ------------------------------------------------------------------ */
+const TOUCH_PHONE = "(hover: none) and (max-width: 767px)";
+const ScrollEntryContext = createContext<MotionValue<number> | null>(null);
+
+function subscribeTouchPhone(onChange: () => void) {
+  const list = window.matchMedia(TOUCH_PHONE);
+  list.addEventListener("change", onChange);
+  return () => list.removeEventListener("change", onChange);
+}
+
+function getTouchPhone() {
+  return window.matchMedia(TOUCH_PHONE).matches;
+}
+
+/** Envolve a composição: publica o progresso (0 → 1) de quando ela entra na tela até o centro. */
+export function HeroScrollEntry({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const phone = useSyncExternalStore(subscribeTouchPhone, getTouchPhone, () => false);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.95", "center 0.6"] });
+  const value = phone && !reduce ? scrollYProgress : null;
+  return (
+    <ScrollEntryContext.Provider value={value}>
+      <div ref={ref} className={className}>
+        {children}
+      </div>
+    </ScrollEntryContext.Provider>
+  );
+}
+
+/** Peças da composição no celular: aparecem e se ajustam com o progresso, e têm um leve "respirar". */
+function ScrollVisualPart({
+  part,
+  progress,
+  children,
+  className,
+  style,
+}: {
+  part: keyof typeof visualParts;
+  progress: MotionValue<number>;
+  children: ReactNode;
+  className?: string;
+  style?: MotionStyle;
+}) {
+  const portraitY = useTransform(progress, [0, 1], [48, 0]);
+  const orbitOpacity = useTransform(progress, [0, 0.15], [0, 1]);
+  const iconsOpacity = useTransform(progress, [0.45, 0.8], [0, 1]);
+  const iconsScale = useTransform(progress, [0.45, 0.8], [0.8, 1]);
+
+  const motionStyle: Record<keyof typeof visualParts, MotionStyle> = {
+    orbit: { opacity: orbitOpacity },
+    portrait: { y: portraitY },
+    icons: { opacity: iconsOpacity, scale: iconsScale },
+  };
+
+  const breathe: Partial<
+    Record<keyof typeof visualParts, { animate: TargetAndTransition; duration: number }>
+  > = {
+    orbit: { animate: { scale: [1, 1.02, 1] }, duration: 6 },
+    icons: { animate: { y: [0, -4, 0] }, duration: 5 },
+  };
+  const loop = breathe[part];
+
+  return (
+    <m.div
+      className={className}
+      style={{ ...style, ...motionStyle[part] }}
+      animate={loop?.animate}
+      transition={
+        loop ? { duration: loop.duration, repeat: Infinity, ease: "easeInOut" } : undefined
+      }
+    >
+      {children}
+    </m.div>
+  );
+}
+
 export function HeroVisualPart({
   part,
   children,
@@ -93,6 +190,14 @@ export function HeroVisualPart({
 }) {
   const reduce = useReducedMotion();
   const { ready } = useIntro();
+  const progress = useContext(ScrollEntryContext);
+  if (progress) {
+    return (
+      <ScrollVisualPart part={part} progress={progress} className={className} style={style}>
+        {children}
+      </ScrollVisualPart>
+    );
+  }
   return (
     <m.div
       className={className}
@@ -110,10 +215,12 @@ export function HeroVisualPart({
    Órbita do hero
    1) Entrada: o anel laranja se traça, os pontos percorrem a órbita e o anel
       tracejado surge girando (≈ 2,5 s no total, uma vez).
+      No celular, o traçado acompanha a rolagem (ver HeroScrollEntry).
    2) Rolagem: os anéis giram conforme a página rola.
    3) Mouse (só com mouse/trackpad): anéis, pontos e ícones se deslocam alguns
       graus/pixels, cada camada com uma profundidade.
-   Nada se move sozinho depois da entrada; movimento reduzido deixa tudo parado.
+   No desktop, nada se move sozinho depois da entrada; no celular a composição respira
+   devagar. Movimento reduzido deixa tudo parado.
    ------------------------------------------------------------------ */
 const FINE_POINTER = "(hover: hover) and (pointer: fine)";
 
@@ -236,10 +343,10 @@ export function ParallaxLayer({
   );
 }
 
-/** Anel laranja que se traça (a partir do topo) quando a abertura libera. */
-export function OrbitStroke() {
-  const { ready } = useIntro();
-  const reduce = useReducedMotion();
+const ORBIT_R = 269.25;
+const ORBIT_LENGTH = 2 * Math.PI * ORBIT_R;
+
+function OrbitSvg({ children }: { children: ReactNode }) {
   return (
     <svg
       aria-hidden="true"
@@ -248,17 +355,49 @@ export function OrbitStroke() {
       fill="none"
       className="absolute inset-0 size-full -rotate-90 overflow-visible"
     >
+      {children}
+    </svg>
+  );
+}
+
+/** Anel laranja que se traça (a partir do topo) quando a abertura libera. */
+function OrbitStrokeIntro() {
+  const { ready } = useIntro();
+  const reduce = useReducedMotion();
+  return (
+    <OrbitSvg>
       <m.circle
         cx={270}
         cy={270}
-        r={269.25}
+        r={ORBIT_R}
         className="stroke-accent stroke-[2.4px] md:stroke-[1.5px]"
         initial={{ pathLength: reduce ? 1 : 0 }}
         animate={{ pathLength: ready || reduce ? 1 : 0 }}
         transition={{ duration: reduce ? 0 : 1.6, ease: ease.expressive, delay: 0.35 }}
       />
-    </svg>
+    </OrbitSvg>
   );
+}
+
+/** No celular, o mesmo traçado acompanha o progresso da rolagem. */
+function OrbitStrokeScroll({ progress }: { progress: MotionValue<number> }) {
+  const dashOffset = useTransform(progress, [0, 1], [ORBIT_LENGTH, 0]);
+  return (
+    <OrbitSvg>
+      <m.circle
+        cx={270}
+        cy={270}
+        r={ORBIT_R}
+        className="stroke-accent stroke-[2.4px] md:stroke-[1.5px]"
+        style={{ strokeDasharray: ORBIT_LENGTH, strokeDashoffset: dashOffset }}
+      />
+    </OrbitSvg>
+  );
+}
+
+export function OrbitStroke() {
+  const progress = useContext(ScrollEntryContext);
+  return progress ? <OrbitStrokeScroll progress={progress} /> : <OrbitStrokeIntro />;
 }
 
 /** Ponto que percorre a órbita até a posição final (`deg`) na entrada. */

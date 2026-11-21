@@ -9,6 +9,7 @@ import { SplitWords } from "@/components/motion/SplitWords";
 import {
   HeroItem,
   HeroPointer,
+  HeroScrollEntry,
   HeroSequence,
   HeroVisualPart,
   OrbitDot,
@@ -194,9 +195,9 @@ export function Hero() {
           </HeroItem>
         </HeroSequence>
 
-        <div className="-mx-5 md:col-span-6 md:col-start-7 md:mx-0 md:translate-x-6 md:self-center lg:translate-x-8 xl:translate-x-12 ref:translate-x-24">
+        <HeroScrollEntry className="-mx-5 md:col-span-6 md:col-start-7 md:mx-0 md:translate-x-6 md:self-center lg:translate-x-8 xl:translate-x-12 ref:translate-x-24">
           <HeroVisual />
-        </div>
+        </HeroScrollEntry>
       </div>
 
       {/* Degradê de 120 px que funde a abertura com a próxima seção */}
