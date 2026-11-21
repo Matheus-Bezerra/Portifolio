@@ -33,15 +33,11 @@
   --color-separator: #5a5650;
   --color-control: #7a766f;
 
-  --color-error: #ff6b6b;
-  --color-success: #7bd69b;
-
   /* Tipografia (variáveis definidas por next/font em app/layout.tsx) */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-sora), var(--font-inter), ui-sans-serif, sans-serif;
 
   /* Raios */
-  --radius-field: 10px;
   --radius-card: 8px;
   --radius-media: 6px;
   --radius-band: 16px;
@@ -323,19 +319,10 @@ html.intro-lock {
 /* ------------------------------------------------------------------
    Cursor da marca (components/motion/CursorDot)
    A classe só entra via JavaScript, com mouse/trackpad.
-   Campos de texto mantêm o cursor nativo.
    ------------------------------------------------------------------ */
 html.has-cursor,
 html.has-cursor * {
   cursor: none;
-}
-
-html.has-cursor :is(input, textarea, [contenteditable="true"]) {
-  cursor: text;
-}
-
-html.has-cursor select {
-  cursor: default;
 }
 
 /* ------------------------------------------------------------------
@@ -613,24 +600,6 @@ html.has-cursor select {
   transition: text-decoration-thickness 150ms var(--ease-standard);
   &:hover {
     text-decoration-thickness: 2px;
-  }
-}
-
-/* Mensagem de erro de campo: entra deslizando de cima, uma vez */
-@keyframes field-error-in {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@utility field-error {
-  @media (prefers-reduced-motion: no-preference) {
-    animation: field-error-in 200ms var(--ease-standard) both;
   }
 }
 

@@ -58,26 +58,6 @@ export const CloseIcon = (p: IconProps) => (
   </Icon>
 );
 
-export const Check = (p: IconProps) => (
-  <Icon strokeWidth={2.2} {...p}>
-    <path d="M5 12.5l4.5 4.5L19 7.5" />
-  </Icon>
-);
-
-export const AlertCircle = (p: IconProps) => (
-  <Icon strokeWidth={1.8} {...p}>
-    <circle cx="12" cy="12" r="9" />
-    <path d="M12 7.5v5.5M12 16.5h.01" />
-  </Icon>
-);
-
-export const InfoCircle = (p: IconProps) => (
-  <Icon strokeWidth={1.8} {...p}>
-    <circle cx="12" cy="12" r="9" />
-    <path d="M12 11v5.5M12 7.5h.01" />
-  </Icon>
-);
-
 /* Ícones genéricos de código do hero (sem marcas de tecnologia) */
 export const CodeBrackets = (p: IconProps) => (
   <Icon strokeWidth={1.8} {...p}>
@@ -124,13 +104,6 @@ export const Person = (p: IconProps) => (
   <Icon strokeWidth={1.8} {...p}>
     <circle cx="12" cy="8" r="3.5" />
     <path d="M5 20c1.2-3.6 4-5 7-5s5.8 1.4 7 5" />
-  </Icon>
-);
-
-export const Document = (p: IconProps) => (
-  <Icon strokeWidth={1.8} {...p}>
-    <path d="M6 3h11a1 1 0 011 1v16l-3-2-3 2-3-2-3 2V4a1 1 0 011-1z" />
-    <path d="M9 8h6M9 12h4" />
   </Icon>
 );
 
