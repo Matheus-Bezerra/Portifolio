@@ -19,7 +19,7 @@ Página única com âncoras, nesta ordem:
 | 05 | Experiência | `#experiencia` | Linha do tempo |
 | 06 | Tecnologias | `#tecnologias` | Lista por área, em texto |
 | 07 | Trabalhos selecionados | `#trabalhos` | Copa Manager → FiscalFlow → complementares |
-| 08 | Contato | `#contato` | Texto + contato direto + formulário |
+| 08 | Contato | `#contato` | Texto + botão de WhatsApp + e-mail e LinkedIn |
 | — | Rodapé | — | Assinatura, navegação, links, currículo, topo |
 
 Navegação principal (7 itens): Início, Sobre, Serviços, Experiência, Tecnologias, Trabalhos, Contato. Enquanto “Como trabalho” estiver na tela, o item ativo continua sendo **Serviços**.
@@ -33,16 +33,14 @@ Navegação principal (7 itens): Início, Sobre, Serviços, Experiência, Tecnol
 | Token | Valor | Uso |
 |---|---|---|
 | `--bg` | `#141414` | Fundo principal |
-| `--surface` | `#202020` | Cards, palcos, formulário, rodapé, CTABand |
+| `--surface` | `#202020` | Cards, palcos, rodapé, CTABand |
 | `--surface-2` (derivado) | `#2A2A2A` / `#1C1C1C` / `#1A1A1A` | Só dentro das ilustrações e dos gradientes dos palcos |
 | `--text` | `#F5F2ED` | Títulos e texto principal |
 | `--text-2` | `#B7B3AD` | Parágrafos e descrições (8,8:1 no fundo) |
 | `--text-3` (derivado) | `#8E8A84` | Metadados, legendas e rótulos pequenos (5,4:1 no fundo; 4,75:1 na superfície) |
 | `--accent` | `#FF853D` | Ações primárias, destaques, indicador ativo, sublinhados de link |
 | `--border` | `#393939` | Filetes e bordas decorativas |
-| `--control` (derivado) | `#7A766F` | Borda de campos e de botões de contorno (3,6:1 na superfície, 4,1:1 no fundo) |
-| `--error` (derivado) | `#FF6B6B` | Erros de formulário, sempre com ícone e texto |
-| `--success` (derivado) | `#7BD69B` | Confirmação de envio e campo válido |
+| `--control` (derivado) | `#7A766F` | Borda de botões de contorno (3,6:1 na superfície, 4,1:1 no fundo) |
 | Separador `/` | `#5A5650` | Barras das listas de tecnologias (decorativo, `aria-hidden`) |
 
 Regras:
@@ -83,10 +81,9 @@ Fontes: Google Fonts, Sora 600 e Inter 400/500/600, com `display=swap`. Pré-car
 
 | Elemento | Raio |
 |---|---|
-| Header, botões, navegação ativa, escolha segmentada | 999 px (pílula) |
-| Campos | 10 px |
+| Header, botões, navegação ativa | 999 px (pílula) |
 | Cards de projeto e experiência | 8 px (imagens internas 6 px) |
-| CTABand, formulário | 16 px |
+| CTABand | 16 px |
 | Palcos de Serviços e Como trabalho | 24 px (mobile 20 px) |
 
 - Sombra só em elementos que flutuam: header rolado `0 12px 32px rgba(0,0,0,.35)`, ícones do hero `0 8px 24px rgba(0,0,0,.35)` e ilustrações dos palcos `0 30px 60px rgba(0,0,0,.45)`.
@@ -113,8 +110,6 @@ Fontes: Google Fonts, Sora 600 e Inter 400/500/600, com `display=swap`. Pré-car
 | **ProjectCard M** | FiscalFlow. Mesma grade 7+5, imagem mais baixa, sem filete laranja. |
 | **ProjectCard S** | Complementares, 4 colunas (mobile: card horizontal com miniatura 1:1). Ao adicionar projetos, entram novos cards S na mesma grade. **Hover dos cards:** borda `#5A5650` e o card sobe 2 px. |
 | **ContactLink** | Linha de 56 px: ícone genérico em círculo, rótulo e seta, filete inferior. O número de telefone nunca aparece. |
-| **FormField** | Campo de 52 px, fundo `#141414`, borda `#7A766F`. **Hover:** borda `#B7B3AD`. **Foco:** borda laranja e halo `0 0 0 3px rgba(255,133,61,.22)`. **Válido:** check verde. **Erro:** borda e texto `#FF6B6B` com ícone. **Desabilitado:** fundo `#1A1A1A` e borda `#393939`. |
-| **SegmentedChoice** | Motivo do contato: pílula com 2 opções. A selecionada tem fundo `#F5F2ED`, texto `#141414` e check. |
 | **MobileMenu** | Tela cheia sobre o fundo. O botão do header vira X (fundo claro). Links em Sora 24 com numeração, o ativo com ponto laranja. Abaixo, o CTA primário e LinkedIn/GitHub. Foco preso no menu, Esc fecha e o foco volta ao botão. |
 | **Footer** | Superfície `#202020`. Assinatura (40 px de altura), frase curta, Navegação, Links, “Ver currículo (PDF)”, © e “Voltar ao topo”. |
 
@@ -141,7 +136,7 @@ Um degradê inferior de 120 px funde a abertura com a seção seguinte. No mobil
 
 **Trabalhos selecionados.** Título sem rótulo acima. O destaque do Copa Manager é moderado. O espaço “Próximo projeto” é só referência da grade e **não é renderizado** no site.
 
-**Contato.** Desktop: 5 colunas de texto e links + 7 colunas de formulário. Mobile: o formulário vem antes dos contatos diretos. Placeholders pendentes: [E-MAIL PROFISSIONAL], link do LinkedIn, aviso de privacidade/LGPD e o texto de confirmação de envio.
+**Contato.** Sem formulário na v1: coluna única com título, texto, botão laranja “Conversar pelo WhatsApp” (mensagem pré-pronta), lista de e-mail e LinkedIn e a nota para recrutadores. O GitHub não é canal de contato; aparece no rodapé, nos cards de projeto e na faixa final de Trabalhos.
 
 ---
 
@@ -171,7 +166,7 @@ O H1 escala com `clamp(34px, 4vw + 1rem, 56px)`, e os H2 com `clamp(28px, 2.4vw 
    - o palco é uma região com `aria-live="polite"` que anuncia “Serviço X de 4” ou “Etapa X de 4”;
    - ↑ ↓ / PageUp / PageDown avançam;
    - os traços são indicadores, não botões.
-5. “Conversar sobre isso” leva a `#contato` e pré-seleciona o tipo de projeto correspondente no formulário.
+5. “Conversar sobre isso” abre o WhatsApp, em nova aba, com a mensagem do serviço correspondente.
 
 ### Atualizações de movimento (v1.1, aprovadas por Matheus)
 
@@ -187,7 +182,6 @@ O H1 escala com `clamp(34px, 4vw + 1rem, 56px)`, e os H2 com `clamp(28px, 2.4vw 
 
 - **Cards de trabalhos:** no hover/foco, traço laranja se desenha sob o nome do projeto (300 ms), a capa dá zoom a 1.03 e o ↗ dos links desliza 2 px.
 - **TechList:** um único traço laranja desliza verticalmente (300 ms) para a área ativa.
-- **Formulário:** o rótulo do campo em foco fica laranja, a mensagem de erro entra deslizando de cima (200 ms) e a seta do botão avança no hover.
 - Todas ficam estáticas com `prefers-reduced-motion`. A entrada dos blocos ao rolar já existia (`Reveal`).
 
 ### Alternativa para movimento reduzido
@@ -234,11 +228,6 @@ O quadro “Palcos de rolagem” mostra essa alternativa.
 - Skip-link “Ir para o conteúdo”. Um H1; um H2 por seção; landmarks `header`, `nav`, `main` e `footer`.
 - Foco visível em todos os controles: contorno 2 px laranja, deslocado 3 px (no botão laranja, o contorno é claro).
 - Alvos ≥ 44 × 44 px no mobile.
-- Formulário:
-  - rótulos visíveis e obrigatórios marcados com `*` e `aria-required`;
-  - erros ligados ao campo por `aria-describedby`;
-  - resumo de erros recebe o foco no envio;
-  - sucesso anunciado por `role="status"`.
 - Listas de tecnologias: separadores `aria-hidden`.
 - Retrato: `alt="Matheus Bezerra"`. Ícones decorativos com `aria-hidden`.
 
@@ -247,6 +236,6 @@ O quadro “Palcos de rolagem” mostra essa alternativa.
 ## 9. Pendências para a implementação
 
 1. SVGs oficiais da marca, retrato final e capas dos projetos (inseridos manualmente).
-2. E-mail profissional, link do LinkedIn, destino do formulário e texto de LGPD/confirmação.
+2. E-mail profissional e link do LinkedIn.
 3. Endereço final do repositório do FiscalFlow.
 4. Atualizar `identidade_visual.md`: o hero usa ícones genéricos de código, não selos de React/TypeScript/Java. Atualizar também `estrategia_conteudo_portifolio.md`: FiscalFlow finalizado, com nova assinatura “Processamento assíncrono de notas fiscais”, e Tecnologias sem faixa de logos.
