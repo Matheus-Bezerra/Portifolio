@@ -19,3 +19,4 @@ next-env.d.ts
 
 # Estudos de imagem descartados (fora do site; ficam só na máquina)
 reference/fotos-nao-usadas/
+.env*
