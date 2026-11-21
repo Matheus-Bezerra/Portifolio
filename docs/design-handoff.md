@@ -17,7 +17,7 @@ Página única com âncoras, nesta ordem:
 | 03 | Serviços | `#servicos` | Palco fixo com 4 serviços |
 | 04 | Como trabalho | `#como-trabalho` | Logo depois de Serviços; palco fixo com ciclo orbital; fecha com CTA |
 | 05 | Experiência | `#experiencia` | Linha do tempo |
-| 06 | Tecnologias | `#tecnologias` | Lista por área, em texto |
+| 06 | Tecnologias | `#tecnologias` | Uma linha por área, em texto |
 | 07 | Trabalhos selecionados | `#trabalhos` | Copa Manager → FiscalFlow → complementares |
 | 08 | Contato | `#contato` | Texto + botão de WhatsApp + e-mail e LinkedIn |
 | — | Rodapé | — | Assinatura, navegação, links, currículo, topo |
@@ -105,7 +105,7 @@ Fontes: Google Fonts, Sora 600 e Inter 400/500/600, com `display=swap`. Pré-car
 | **SegmentIndicator** | 4 traços de 3 px: ativo laranja, demais `#393939`. Rótulos em 12 px, `aria-hidden`; não são clicáveis. |
 | **CTABand** | Superfície `#202020` com borda, pergunta em Sora 24 (mobile 20) e botão primário. Aparece no fim de Como trabalho e no fim de Trabalhos. |
 | **TimelineItem** | Período (coluna de 170 px) e conteúdo: empresa, cargo, descrição e tecnologias em texto separado por barras. **Atual:** ponto laranja com halo e rótulo “Atual” em laranja. **Anteriores:** ponto vazado `#7A766F`. A linha vertical é de 1 px `#393939`. No mobile, vira card; o atual tem um filete laranja de 2 px à esquerda. |
-| **TechList** | Abas por área. Desktop: à esquerda, lista de áreas (número 01–05, nome em Sora 17 e contador); a ativa fica em `#F5F2ED` com traço laranja de 24×2 px, troca por clique, hover ou setas ↑/↓. À direita, as tecnologias da área em Sora 30/40, em 2 colunas, com filetes `#393939`. Mobile: acordeão com a primeira área aberta e itens em texto separado por barras. Sem destaque de principais, pílulas, logos ou faixa animada. |
+| **TechList** | Uma linha por área, com todas as tecnologias à vista (sem abas). Filete de 1 px `#5A5650` que se desenha no topo e filetes `#393939` entre as linhas. Desktop: número 01–05 e nome da área em Sora 20 à esquerda (coluna de até 320 px); tecnologias à direita em Sora 20/36 medium, separadas por barras decorativas. Mobile: nome em cima e tecnologias embaixo, em Sora 17/32. **Hover:** número laranja, texto claro e traço laranja que se desenha sobre o filete. Entrada em sequência. Sem destaque de principais, pílulas, logos ou faixa animada. |
 | **ProjectCard L** | Copa Manager. Superfície, borda `#4A4741` e filete laranja interno de 2 px no topo. Imagem com 7 colunas e texto com 5. Ações: case (contorno), demonstração e código (links). |
 | **ProjectCard M** | FiscalFlow. Mesma grade 7+5, imagem mais baixa, sem filete laranja. |
 | **ProjectCard S** | Complementares, 4 colunas (mobile: card horizontal com miniatura 1:1). Ao adicionar projetos, entram novos cards S na mesma grade. **Hover dos cards:** borda `#5A5650` e o card sobe 2 px. |
@@ -132,11 +132,11 @@ Um degradê inferior de 120 px funde a abertura com a seção seguinte. No mobil
 
 **Experiência.** No desktop, a coluna esquerda (título e texto) fica `sticky` a 120 px do topo enquanto a linha do tempo rola. No mobile, a descrição é a versão resumida já aprovada, e as tecnologias mostram até 4 itens e “+N”.
 
-**Tecnologias.** Título “Tecnologias que uso” e 5 áreas em abas (desktop) ou acordeão (mobile), sem legenda nem destaque de principais.
+**Tecnologias.** Título “Tecnologias que uso” e 5 áreas em linhas, todas visíveis de uma vez, sem legenda nem destaque de principais.
 
 **Trabalhos selecionados.** Título sem rótulo acima. O destaque do Copa Manager é moderado. O espaço “Próximo projeto” é só referência da grade e **não é renderizado** no site.
 
-**Contato.** Sem formulário na v1: coluna única com título, texto, botão laranja “Conversar pelo WhatsApp” (mensagem pré-pronta), lista de e-mail e LinkedIn e a nota para recrutadores. O GitHub não é canal de contato; aparece no rodapé, nos cards de projeto e na faixa final de Trabalhos.
+**Contato.** Sem formulário na v1. Desktop: título e texto à esquerda (5 colunas); à direita (7), dois blocos sem card: “Novo projeto” (botão laranja “Conversar pelo WhatsApp”, com mensagem pré-pronta) e “Oportunidades profissionais” (nota para recrutadores, e-mail e LinkedIn). Filetes que se desenham na entrada. Mobile: tudo em coluna. O GitHub não é canal de contato; aparece no rodapé, nos cards de projeto e na faixa final de Trabalhos.
 
 ---
 
@@ -181,8 +181,15 @@ O H1 escala com `clamp(34px, 4vw + 1rem, 56px)`, e os H2 com `clamp(28px, 2.4vw 
 ### Microinterações (v1.2, aprovadas por Matheus)
 
 - **Cards de trabalhos:** no hover/foco, traço laranja se desenha sob o nome do projeto (300 ms), a capa dá zoom a 1.03 e o ↗ dos links desliza 2 px.
-- **TechList:** um único traço laranja desliza verticalmente (300 ms) para a área ativa.
 - Todas ficam estáticas com `prefers-reduced-motion`. A entrada dos blocos ao rolar já existia (`Reveal`).
+
+### Tecnologias e Contato (v1.3, aprovadas por Matheus)
+
+- **TechList, entrada:** o filete do topo se desenha (0,9 s). Cada linha sobe ao chegar na tela e, em seguida, as tecnologias entram uma a uma (fade + 6 px, ≈ 35 ms de intervalo).
+- **TechList, linha ativa pela rolagem:** a linha que cruza a faixa central da tela (10% da altura) fica em destaque, com número laranja, texto claro e traço laranja desenhado sobre o filete (500 ms). As demais ficam em `#B7B3AD`. Substitui o hover como interação principal e funciona no celular; no desktop o hover soma o mesmo efeito.
+- **TechList, tecnologia individual:** só com mouse, o nome fica laranja e sobe 2 px (200 ms).
+- **Contato:** os filetes dos dois blocos se desenham na entrada, o texto sobe e as linhas de e-mail e LinkedIn entram em sequência. No hover, o ícone cresce e fica laranja, o texto e a seta deslizam 4 px e um traço laranja se desenha sobre o filete. A seta do botão de WhatsApp avança 4 px.
+- Com `prefers-reduced-motion`, tudo vira um fade de 120 ms, sem subida, cascata nem deslocamento.
 
 ### Alternativa para movimento reduzido
 
