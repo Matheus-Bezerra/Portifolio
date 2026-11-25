@@ -9,7 +9,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import { useLenis } from "lenis/react";
-import { useMotionValueEvent, useScroll } from "motion/react";
+import { useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
 
 /** Abaixo desta altura de janela, ou com movimento reduzido, não há palco fixo. */
 const MIN_STAGE_HEIGHT = 640;
@@ -43,6 +43,10 @@ export function useStageMode(): StageMode {
 /**
  * Motor dos palcos de rolagem: progresso do contêiner → índice discreto.
  * Rolar para cima volta ao estado anterior; ao fim do contêiner o palco se solta.
+ *
+ * Além do índice discreto (acessibilidade, indicador, teclado), expõe `pos`: posição
+ * contínua (0 … count − 1) com o centro de cada passo em número inteiro. As camadas
+ * animam a partir dela, então a transição acompanha a rolagem, forte ou fraca, sem saltos.
  */
 export function useScrollStage(count: number, enabled: boolean) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -66,16 +70,20 @@ export function useScrollStage(count: number, enabled: boolean) {
     [count],
   );
 
-  useMotionValueEvent(scrollYProgress, "change", (p) => {
+  /* Pequena mola: suaviza o toque (sem Lenis) e picos de rolagem do mouse */
+  const smooth = useSpring(scrollYProgress, { stiffness: 150, damping: 30, mass: 0.35 });
+  const pos = useTransform(smooth, (p) => Math.min(count - 1, Math.max(0, p * count - 0.5)));
+
+  useMotionValueEvent(smooth, "change", (p) => {
     if (enabled) sync(p, true);
   });
 
   /* Ao ativar o palco (ou carregar a página no meio dele), alinha o estado sem anunciar */
   useEffect(() => {
     if (!enabled) return;
-    const frame = requestAnimationFrame(() => sync(scrollYProgress.get(), false));
+    const frame = requestAnimationFrame(() => sync(smooth.get(), false));
     return () => cancelAnimationFrame(frame);
-  }, [enabled, sync, scrollYProgress]);
+  }, [enabled, sync, smooth]);
 
   /** Rola até o centro do passo `step` (usado pelo teclado). */
   const lenis = useLenis();
@@ -110,5 +118,5 @@ export function useScrollStage(count: number, enabled: boolean) {
     [enabled, index, count, goToStep],
   );
 
-  return { containerRef, index, announced, onKeyDown };
+  return { containerRef, index, pos, announced, onKeyDown, goToStep };
 }
