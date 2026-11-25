@@ -33,14 +33,14 @@ export function SegmentIndicator({
   return (
     <div
       aria-hidden={onSelect ? undefined : "true"}
-      className={cn("grid gap-1.5 md:gap-3", className)}
+      className={cn("grid gap-2.5 md:gap-3", className)}
       style={{ gridTemplateColumns: `repeat(${labels.length}, minmax(0, 1fr))` }}
     >
       {labels.map((label, i) => {
         const on = i === active;
         const content = (
           <>
-            <i className="relative block h-[3px] overflow-hidden rounded-[2px] bg-line">
+            <i className="relative block h-[3px] w-full overflow-hidden rounded-[2px] bg-line">
               {pos ? (
                 <ScrubFill pos={pos} i={i} />
               ) : (
@@ -59,7 +59,8 @@ export function SegmentIndicator({
                 onSelect && !on && "group-hover:text-text-2",
               )}
             >
-              {i + 1} · {label}
+              {i + 1}
+              <span className="max-md:sr-only"> · {label}</span>
             </span>
           </>
         );
@@ -70,12 +71,12 @@ export function SegmentIndicator({
             onClick={() => onSelect(i)}
             aria-label={itemLabel?.(i)}
             aria-current={on ? "step" : undefined}
-            className="group flex min-w-0 cursor-pointer flex-col gap-2.5 py-2 text-left"
+            className="group flex min-w-0 cursor-pointer flex-col gap-2.5 py-2 text-left max-md:items-center"
           >
             {content}
           </button>
         ) : (
-          <div key={label} className="flex min-w-0 flex-col gap-2.5">
+          <div key={label} className="flex min-w-0 flex-col gap-2.5 max-md:items-center">
             {content}
           </div>
         );
