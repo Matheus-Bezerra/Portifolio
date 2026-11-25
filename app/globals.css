@@ -543,6 +543,9 @@ html.has-cursor * {
   @media (width < 48rem) and (max-height: 760px) {
     --is: 0.6;
   }
+  @media (width < 48rem) and (max-height: 720px) {
+    --is: 0.5;
+  }
   @media (width >= 48rem) {
     --is: 1;
   }
