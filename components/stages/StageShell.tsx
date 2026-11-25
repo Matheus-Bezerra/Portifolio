@@ -14,6 +14,7 @@ interface StageShellProps {
 
 /**
  * Contêiner de rolagem (100dvh + N × --stage-step dvh) com o palco sticky em tela cheia, sem card.
+ * Abaixo de lg reserva 80 px embaixo para o indicador ficar acima da bolinha do WhatsApp.
  * Usa dvh (não svh) para acompanhar a barra do Safari: o palco ocupa exatamente a janela visível.
  * Inclui marcadores de snap leve (scroll-snap "proximity") no centro de cada passo
  * e a região que anuncia "Serviço X de 4" / "Etapa X de 4".
@@ -54,7 +55,7 @@ export function StageShell({
         aria-label={label}
         tabIndex={0}
         onKeyDown={onKeyDown}
-        className="sticky top-0 flex h-dvh flex-col pt-[72px] pb-6 lg:pt-24 lg:pb-8"
+        className="sticky top-0 flex h-dvh flex-col pt-[72px] pb-20 lg:pt-24 lg:pb-8"
       >
         {/* Brilho laranja discreto atrás da ilustração (sem moldura) */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-clip">
