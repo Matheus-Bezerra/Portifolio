@@ -31,7 +31,7 @@ export function TechnologiesRows() {
           </div>
           <TechInline
             items={group.items.map((t) => t.name)}
-            className="pl-10 font-display text-[17px] leading-8 font-medium text-text md:pl-0 md:text-[20px] md:leading-9"
+            className="pl-10 text-[16px] leading-8 font-normal text-text-2 md:pl-0 md:text-[17px] md:leading-9"
           />
           <DrawLine className="absolute inset-x-0 bottom-0 h-px bg-line" delay={0.1} />
         </Reveal>
