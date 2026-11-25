@@ -1,14 +1,12 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
-import * as m from "motion/react-m";
 import { ArrowDown } from "@/components/icons";
 import { Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { SegmentIndicator } from "@/components/ui/SegmentIndicator";
 import type { ProcessStep } from "@/types/content";
-import { ease, transition } from "@/lib/motion";
 import { cn, pad2 } from "@/lib/utils";
 import { ProcessCycle } from "./ProcessCycle";
+import { StageLayer } from "./StageLayer";
 import { StageShell } from "./StageShell";
 import { useScrollStage, useStageMode } from "./useScrollStage";
 
@@ -54,9 +52,11 @@ function ProcessList({ steps }: { steps: ProcessStep[] }) {
 
 export function ProcessStage({ steps, cycleLabel, scrollHint }: ProcessStageProps) {
   const mode = useStageMode();
-  const reduce = useReducedMotion();
   const count = steps.length;
-  const { containerRef, index, announced, onKeyDown } = useScrollStage(count, mode === "stage");
+  const { containerRef, index, pos, announced, onKeyDown, goToStep } = useScrollStage(
+    count,
+    mode === "stage",
+  );
 
   if (mode === "static") return <ProcessList steps={steps} />;
 
@@ -76,30 +76,39 @@ export function ProcessStage({ steps, cycleLabel, scrollHint }: ProcessStageProp
           {/* Ciclo: em cima no mobile/tablet, à direita no desktop */}
           <div className="order-first flex justify-center py-6 md:py-2 lg:order-last lg:col-span-7 lg:col-start-6 lg:py-0">
             <div className="md:hidden">
-              <ProcessCycle steps={steps} index={index} cycleLabel={cycleLabel} size="sm" />
+              <ProcessCycle
+                steps={steps}
+                index={index}
+                pos={pos}
+                cycleLabel={cycleLabel}
+                onSelect={goToStep}
+                size="sm"
+              />
             </div>
             <div className="relative hidden h-[calc(540px*var(--ps))] w-[calc(700px*var(--ps))] stage-ring md:block">
               <div className="absolute top-0 left-0 origin-top-left scale-(--ps)">
-                <ProcessCycle steps={steps} index={index} cycleLabel={cycleLabel} size="lg" />
+                <ProcessCycle
+                  steps={steps}
+                  index={index}
+                  pos={pos}
+                  cycleLabel={cycleLabel}
+                  onSelect={goToStep}
+                  size="lg"
+                />
               </div>
             </div>
           </div>
 
           <div className={cn(stacked, "lg:col-span-5")}>
             {steps.map((step, i) => {
-              const r = i === index ? 0 : i < index ? -1 : 1;
-              const isActive = r === 0;
+              const isActive = i === index;
               return (
-                <m.div
+                <StageLayer
                   key={step.id}
-                  initial={false}
-                  animate={{ opacity: isActive ? 1 : 0, y: reduce ? 0 : r * -28 }}
-                  transition={
-                    isActive
-                      ? { ...transition.stage, delay: 0.12 }
-                      : { duration: 0.35, ease: ease.standard }
-                  }
-                  aria-hidden={!isActive}
+                  pos={pos}
+                  i={i}
+                  kind="text"
+                  active={isActive}
                   className={cn("flex flex-col gap-2 lg:gap-5", !isActive && "pointer-events-none")}
                 >
                   <p className="type-meta text-[11px] tracking-[0.14em] uppercase lg:text-[12px]">
@@ -120,13 +129,19 @@ export function ProcessStage({ steps, cycleLabel, scrollHint }: ProcessStageProp
                   <p className="mt-2 hidden items-center gap-1.5 type-meta lg:flex">
                     {scrollHint} <ArrowDown size={14} />
                   </p>
-                </m.div>
+                </StageLayer>
               );
             })}
           </div>
         </div>
 
-        <SegmentIndicator labels={steps.map((s) => s.title)} active={index} />
+        <SegmentIndicator
+          labels={steps.map((s) => s.title)}
+          active={index}
+          pos={pos}
+          onSelect={goToStep}
+          itemLabel={(i) => `Ir para a etapa ${i + 1}: ${steps[i]?.title ?? ""}`}
+        />
       </div>
     </StageShell>
   );

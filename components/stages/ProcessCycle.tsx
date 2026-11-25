@@ -1,15 +1,19 @@
 "use client";
 
-import { AnimatePresence, useReducedMotion } from "motion/react";
+import { useTransform, type MotionValue } from "motion/react";
 import * as m from "motion/react-m";
 import type { ProcessStep } from "@/types/content";
-import { transition } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import { StageFade } from "./StageLayer";
 
 interface ProcessCycleProps {
   steps: ProcessStep[];
   index: number;
+  /** Posição contínua do palco: o anel gira e o arco avança junto com a rolagem. */
+  pos: MotionValue<number>;
   cycleLabel: string;
+  /** Leva ao passo clicado (nós numerados do anel). */
+  onSelect?: (index: number) => void;
   /** "lg": anel de 440 px com rótulos ao redor · "sm": anel de 220 px (mobile) */
   size: "lg" | "sm";
 }
@@ -27,18 +31,31 @@ const labelSlots = [
   "left-0 top-[258px] w-[92px] text-right",
 ] as const;
 
+/** Camada laranja do nó: aparece e some conforme a rolagem passa por ele. */
+function NodeGlow({ pos, k }: { pos: MotionValue<number>; k: number }) {
+  const opacity = useTransform(pos, [k - 1, k, k + 1], [0, 1, 0]);
+  return (
+    <m.span
+      aria-hidden="true"
+      style={{ opacity }}
+      className="pointer-events-none absolute -inset-px flex items-center justify-center rounded-full bg-accent text-bg shadow-[0_0_0_6px_var(--color-bg),0_0_0_7px_color-mix(in_srgb,var(--color-accent)_50%,transparent)]"
+    >
+      {k + 1}
+    </m.span>
+  );
+}
+
 /**
  * Ciclo orbital: o anel gira 90° por etapa, a etapa ativa sobe ao topo e o arco
  * laranja avança 25% a cada etapa. Números e textos são contra-rotacionados.
  */
-export function ProcessCycle({ steps, index, cycleLabel, size }: ProcessCycleProps) {
-  const reduce = useReducedMotion();
+export function ProcessCycle({ steps, index, pos, cycleLabel, onSelect, size }: ProcessCycleProps) {
   const d = dims[size];
   const r = d.ring / 2 - 1;
   const count = steps.length;
-  const rotation = -90 * index;
-  const t = reduce ? { duration: 0 } : transition.stage;
-  const active = steps[index];
+  const rotation = useTransform(pos, (v) => -90 * v);
+  const counterRotation = useTransform(pos, (v) => 90 * v);
+  const arc = useTransform(pos, (v) => (v + 1) / count);
 
   const ring = (
     <div className="relative" style={{ width: d.ring, height: d.ring }}>
@@ -66,9 +83,7 @@ export function ProcessCycle({ steps, index, cycleLabel, size }: ProcessCyclePro
           stroke="var(--color-accent)"
           strokeWidth="2"
           strokeLinecap="round"
-          initial={false}
-          animate={{ pathLength: (index + 1) / count }}
-          transition={t}
+          style={{ pathLength: arc }}
         />
       </svg>
       <div
@@ -97,62 +112,56 @@ export function ProcessCycle({ steps, index, cycleLabel, size }: ProcessCyclePro
             size === "lg" ? "text-[44px] leading-[48px]" : "text-[27px] leading-[29px]",
           )}
         >
-          <AnimatePresence mode="popLayout" initial={false}>
-            <m.span
-              key={index}
-              className="inline-block"
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-            >
-              {index + 1}
-            </m.span>
-          </AnimatePresence>
+          <span className="inline-grid [&>*]:col-start-1 [&>*]:row-start-1">
+            {steps.map((step, k) => (
+              <StageFade key={step.id} pos={pos} i={k} rise={-10}>
+                {k + 1}
+              </StageFade>
+            ))}
+          </span>
           <span className="text-separator"> / {count}</span>
         </span>
         <span
-          className={cn("font-medium text-text-2", size === "lg" ? "text-[14px]" : "text-[12px]")}
+          className={cn(
+            "inline-grid font-medium text-text-2 [&>*]:col-start-1 [&>*]:row-start-1",
+            size === "lg" ? "text-[14px]" : "text-[12px]",
+          )}
         >
-          {active?.title}
+          {steps.map((step, k) => (
+            <StageFade key={step.id} pos={pos} i={k} className="text-center">
+              {step.title}
+            </StageFade>
+          ))}
         </span>
       </div>
 
       {/* Camada que gira: 4 nós (etapa k a k × 90°) */}
-      <m.div
-        aria-hidden="true"
-        className="absolute inset-0"
-        initial={false}
-        animate={{ rotate: rotation }}
-        transition={t}
-      >
+      <m.div className="absolute inset-0" style={{ rotate: rotation }}>
         {steps.map((step, k) => {
           const isActive = k === index;
           const angle = (k * Math.PI) / 2;
           const cx = d.ring / 2 + (d.ring / 2) * Math.sin(angle);
           const cy = d.ring / 2 - (d.ring / 2) * Math.cos(angle);
           return (
-            <m.div
+            <m.button
+              type="button"
               key={step.id}
-              className={cn(
-                "absolute flex items-center justify-center rounded-full font-display font-semibold transition-colors duration-500",
-                isActive
-                  ? "bg-accent text-bg shadow-[0_0_0_6px_var(--color-bg),0_0_0_7px_color-mix(in_srgb,var(--color-accent)_50%,transparent)]"
-                  : "border border-line-strong bg-surface text-text-2 shadow-[0_0_0_6px_var(--color-bg)]",
-              )}
+              onClick={() => onSelect?.(k)}
+              aria-label={`Ir para a etapa ${k + 1}: ${step.title}`}
+              aria-current={isActive ? "step" : undefined}
+              className="absolute flex cursor-pointer items-center justify-center rounded-full border border-line-strong bg-surface font-display font-semibold text-text-2 shadow-[0_0_0_6px_var(--color-bg)]"
               style={{
                 width: d.node,
                 height: d.node,
                 left: cx - d.node / 2,
                 top: cy - d.node / 2,
                 fontSize: d.nodeFont,
+                rotate: counterRotation,
               }}
-              initial={false}
-              animate={{ rotate: -rotation }}
-              transition={t}
             >
               {k + 1}
-            </m.div>
+              <NodeGlow pos={pos} k={k} />
+            </m.button>
           );
         })}
       </m.div>
@@ -165,33 +174,24 @@ export function ProcessCycle({ steps, index, cycleLabel, size }: ProcessCyclePro
   return (
     <div className="relative h-[540px] w-[700px]">
       <div className="absolute top-[50px] left-[130px]">{ring}</div>
-      {labelSlots.map((slot, s) => {
-        const step = steps[(index + s) % count];
-        return (
-          <span
-            key={s}
-            aria-hidden="true"
-            className={cn(
-              "absolute font-display text-[14px]",
-              slot,
-              s === 0 ? "font-semibold text-text" : "font-medium text-text-3",
-            )}
-          >
-            <AnimatePresence mode="popLayout" initial={false}>
-              <m.span
-                key={step?.id}
-                className="inline-block whitespace-nowrap"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: reduce ? 0 : 0.35 }}
-              >
-                {step?.title}
-              </m.span>
-            </AnimatePresence>
-          </span>
-        );
-      })}
+      {labelSlots.map((slot, s) => (
+        <span
+          key={s}
+          aria-hidden="true"
+          className={cn(
+            "absolute inline-grid font-display text-[14px] whitespace-nowrap [&>*]:col-start-1 [&>*]:row-start-1",
+            slot,
+            s === 0 ? "font-semibold text-text" : "font-medium text-text-3",
+            s === 0 || s === 2 ? "justify-items-center" : s === 3 ? "justify-items-end" : "",
+          )}
+        >
+          {steps.map((step, k) => (
+            <StageFade key={step.id} pos={pos} i={k} shift={s} cycle={count}>
+              {step.title}
+            </StageFade>
+          ))}
+        </span>
+      ))}
     </div>
   );
 }
