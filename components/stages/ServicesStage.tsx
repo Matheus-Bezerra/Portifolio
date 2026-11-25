@@ -106,8 +106,8 @@ export function ServicesStage({ services, ctaLabel, scrollHint }: ServicesStageP
       announced={announced}
       onKeyDown={onKeyDown}
     >
-      <div className="relative z-10 flex flex-1 flex-col gap-6 lg:gap-8">
-        <div className="flex flex-1 flex-col justify-center gap-6 md:gap-8 lg:grid lg:grid-cols-12 lg:grid-rows-1 lg:items-center lg:gap-x-6">
+      <div className="relative z-10 flex flex-1 flex-col gap-8 max-lg:justify-center max-md:[@media(max-height:720px)]:gap-5">
+        <div className="flex flex-col justify-center gap-6 md:gap-8 lg:grid lg:flex-1 lg:grid-cols-12 lg:grid-rows-1 lg:items-center lg:gap-x-6 max-md:[@media(max-height:720px)]:gap-3">
           {/* Ilustração: em cima no mobile/tablet, à direita no desktop */}
           <div className="order-first flex justify-center lg:order-last lg:col-span-7 lg:col-start-6">
             <div className="relative h-[calc(300px*var(--is))] w-[calc(420px*var(--is))] stage-art">
